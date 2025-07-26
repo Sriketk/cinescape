@@ -62,12 +62,10 @@ export default function MovieMoodApp() {
       <div className="relative z-10 flex flex-col items-center justify-center min-h-screen p-8">
         {/* Header */}
         <div className="text-center mb-12">
-          <div className="flex items-center justify-center gap-3 mb-6">
-            <h1 className="text-4xl md:text-5xl font-bold font-serif bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 bg-clip-text text-transparent">
-              Cinescape
-            </h1>
-          </div>
-          <p className="text-lg md:text-xl text-gray-600 max-w-2xl font-light leading-relaxed">
+          <h1 className="p-2 text-5xl font-bold font-serif bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 bg-clip-text text-transparent">
+            Cinescape
+          </h1>
+          <p className="text-lg mt-2s md:text-xl text-gray-600 max-w-2xl font-light leading-relaxed mt-6">
             Stop stalling. Find your next movie.
           </p>
         </div>
