@@ -1,15 +1,25 @@
 import type { Metadata } from "next";
-import { Libre_Baskerville } from "next/font/google";
-import { GeistSans } from "geist/font/sans";
-import { GeistMono } from "geist/font/mono";
+import { Libre_Baskerville, Lora, IBM_Plex_Mono } from "next/font/google";
 import "./globals.css";
 
-// Libre Baskerville font configuration
 const libreBaskerville = Libre_Baskerville({
   subsets: ["latin"],
   weight: ["400", "700"],
   style: ["normal", "italic"],
   variable: "--font-libre-baskerville",
+  display: "swap",
+});
+
+const lora = Lora({
+  subsets: ["latin"],
+  variable: "--font-lora",
+  display: "swap",
+});
+
+const ibmPlexMono = IBM_Plex_Mono({
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
+  variable: "--font-ibm-plex-mono",
   display: "swap",
 });
 
@@ -26,8 +36,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body
-        className={`${libreBaskerville.variable} ${GeistSans.variable} ${GeistMono.variable}`}
+      <body 
+        className={`${libreBaskerville.variable} ${lora.variable} ${ibmPlexMono.variable}`}
+        suppressHydrationWarning={true}
       >
         {children}
       </body>

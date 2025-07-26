@@ -62,7 +62,7 @@ export default function MovieMoodApp() {
       <div className="relative z-10 flex flex-col items-center justify-center min-h-screen p-8">
         {/* Header */}
         <div className="text-center mb-12">
-          <h1 className="p-2 text-5xl font-bold font-serif bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 bg-clip-text text-transparent">
+          <h1 className="p-2 text-5xl  font-bold bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 bg-clip-text text-transparent">
             Cinescape
           </h1>
           <p className="text-lg mt-2s md:text-xl text-gray-600 max-w-2xl font-light leading-relaxed mt-6">
@@ -73,15 +73,19 @@ export default function MovieMoodApp() {
         {/* Input Section */}
         <div className="w-full max-w-2xl mb-12">
           <form onSubmit={handleSubmit} className="relative group">
-            <div className="absolute inset-0 bg-gradient-to-r from-amber-200/50 via-orange-200/50 to-yellow-200/50 rounded-3xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-            <div className="relative bg-white/80 backdrop-blur-xl shadow-2xl rounded-3xl p-8 border border-white/50 transition-all duration-300 hover:shadow-3xl hover:bg-white/90">
+            {/* Enhanced outer glow */}
+            <div className="absolute inset-0 bg-gradient-to-r from-amber-300/40 via-orange-300/40 to-yellow-300/40 rounded-3xl blur-2xl opacity-0 group-hover:opacity-100 transition-all duration-700 scale-105" />
+            <div className="absolute inset-0 bg-gradient-to-r from-amber-200/20 via-orange-200/20 to-yellow-200/20 rounded-3xl blur-xl opacity-30 group-focus-within:opacity-60 transition-opacity duration-500" />
+            
+            {/* Main container with warm tint */}
+            <div className="relative bg-gradient-to-br from-white/90 via-amber-50/80 to-orange-50/70 backdrop-blur-xl shadow-2xl rounded-3xl p-8 border border-amber-200/30 transition-all duration-300 hover:shadow-3xl hover:border-amber-300/50 focus-within:border-orange-300/60 focus-within:bg-gradient-to-br focus-within:from-white/95 focus-within:via-amber-50/90 focus-within:to-orange-50/80">
               <div className="flex items-center gap-4">
                 <div className="flex-1">
                   <Input
                     value={mood}
                     onChange={(e) => setMood(e.target.value)}
                     placeholder="Describe your current mood or feeling..."
-                    className="bg-transparent border-none text-gray-900 placeholder:text-gray-400 text-lg h-14 focus-visible:ring-0 focus-visible:ring-offset-0 font-light"
+                    className="bg-transparent border-none text-gray-800  placeholder:text-gray-500/70 text-2xl h-14 focus-visible:ring-0 focus-visible:ring-offset-0 font-light placeholder:font-normal text-center placeholder:text-center"
                     disabled={isLoading}
                     onKeyDown={(e) => {
                       if (e.key === "Enter" && mood.trim() && !isLoading) {
@@ -94,7 +98,7 @@ export default function MovieMoodApp() {
                   <button
                     type="submit"
                     disabled={isLoading}
-                    className="w-12 h-12 bg-gradient-to-r from-gray-900 to-gray-800 rounded-2xl flex items-center justify-center shadow-lg hover:shadow-xl transition-all duration-200 hover:scale-105 disabled:opacity-50 disabled:hover:scale-100"
+                    className="w-12 h-12 bg-gradient-to-r from-amber-600 via-orange-600 to-yellow-600 rounded-2xl flex items-center justify-center shadow-lg hover:shadow-xl hover:from-amber-700 hover:via-orange-700 hover:to-yellow-700 transition-all duration-200 hover:scale-105 disabled:opacity-50 disabled:hover:scale-100 ring-1 ring-amber-300/20"
                   >
                     {isLoading ? (
                       <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
@@ -121,7 +125,7 @@ export default function MovieMoodApp() {
         {recommendations.length > 0 && (
           <div className="w-full max-w-4xl">
             <div className="text-center mb-8">
-              <h2 className="text-2xl font-bold font-serif text-gray-900 mb-2">
+              <h2 className="text-2xl font-bold text-gray-900 mb-2">
                 Curated for You
               </h2>
               <p className="text-gray-600 font-light">
@@ -140,7 +144,7 @@ export default function MovieMoodApp() {
                         <Film className="w-6 h-6 text-white" />
                       </div>
                       <div className="flex-1">
-                        <h3 className="text-xl font-bold font-serif text-gray-900 mb-2 group-hover:text-gray-800 transition-colors">
+                        <h3 className="text-xl font-bold  text-gray-900 mb-2 group-hover:text-gray-800 transition-colors">
                           {movie.title}
                         </h3>
                         <p className="text-gray-500 text-sm mb-3 font-medium">

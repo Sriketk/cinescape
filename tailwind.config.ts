@@ -13,8 +13,9 @@ const config: Config = {
   theme: {
   	extend: {
   		fontFamily: {
-  			'serif': ['var(--font-libre-baskerville)', 'Georgia', 'serif'],
-  			'sans': ['var(--font-geist-sans)', 'system-ui', 'sans-serif'],
+  			'sans': ['var(--font-libre-baskerville)', 'sans-serif'],
+  			'serif': ['var(--font-lora)', 'serif'],
+  			'mono': ['var(--font-ibm-plex-mono)', 'monospace'],
   		},
   		colors: {
   			background: 'hsl(var(--background))',
