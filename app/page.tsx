@@ -1,28 +1,30 @@
-"use client"
+"use client";
 
-import type React from "react"
+import type React from "react";
 
-import { useState } from "react"
-import { Input } from "@/components/ui/input"
-import { Card, CardContent } from "@/components/ui/card"
-import { Film, Sparkles, ArrowRight } from "lucide-react"
+import { useState } from "react";
+import { Input } from "@/components/ui/input";
+import { Card, CardContent } from "@/components/ui/card";
+import { Film, Sparkles, ArrowRight } from "lucide-react";
 
 interface MovieRecommendation {
-  title: string
-  year: string
-  genre: string
-  reason: string
+  title: string;
+  year: string;
+  genre: string;
+  reason: string;
 }
 
 export default function MovieMoodApp() {
-  const [mood, setMood] = useState("")
-  const [recommendations, setRecommendations] = useState<MovieRecommendation[]>([])
-  const [isLoading, setIsLoading] = useState(false)
+  const [mood, setMood] = useState("");
+  const [recommendations, setRecommendations] = useState<MovieRecommendation[]>(
+    []
+  );
+  const [isLoading, setIsLoading] = useState(false);
 
   const getRecommendations = async () => {
-    if (!mood.trim()) return
+    if (!mood.trim()) return;
 
-    setIsLoading(true)
+    setIsLoading(true);
     try {
       const response = await fetch("/api/recommendations", {
         method: "POST",
@@ -30,25 +32,25 @@ export default function MovieMoodApp() {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({ mood: mood.trim() }),
-      })
+      });
 
       if (!response.ok) {
-        throw new Error("Failed to get recommendations")
+        throw new Error("Failed to get recommendations");
       }
 
-      const data = await response.json()
-      setRecommendations(data.recommendations)
+      const data = await response.json();
+      setRecommendations(data.recommendations);
     } catch (error) {
-      console.error("Error getting recommendations:", error)
+      console.error("Error getting recommendations:", error);
     } finally {
-      setIsLoading(false)
+      setIsLoading(false);
     }
-  }
+  };
 
   const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault()
-    getRecommendations()
-  }
+    e.preventDefault();
+    getRecommendations();
+  };
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-amber-50 via-orange-50 to-yellow-50 relative overflow-hidden">
@@ -61,20 +63,12 @@ export default function MovieMoodApp() {
         {/* Header */}
         <div className="text-center mb-12">
           <div className="flex items-center justify-center gap-3 mb-6">
-            <div className="relative">
-              <div className="w-12 h-12 bg-gradient-to-br from-amber-400 via-orange-500 to-yellow-600 rounded-2xl flex items-center justify-center shadow-lg">
-                <Film className="w-6 h-6 text-white" />
-              </div>
-              <div className="absolute -top-1 -right-1 w-4 h-4 bg-gradient-to-br from-purple-500 to-pink-500 rounded-full flex items-center justify-center">
-                <Sparkles className="w-2 h-2 text-white" />
-              </div>
-            </div>
-            <h1 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 bg-clip-text text-transparent">
-              Movie Mood
+            <h1 className="text-4xl md:text-5xl font-bold font-serif bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 bg-clip-text text-transparent">
+              Cinescape
             </h1>
           </div>
           <p className="text-lg md:text-xl text-gray-600 max-w-2xl font-light leading-relaxed">
-            Discover your perfect film through the power of AI
+            Stop stalling. Find your next movie.
           </p>
         </div>
 
@@ -93,7 +87,7 @@ export default function MovieMoodApp() {
                     disabled={isLoading}
                     onKeyDown={(e) => {
                       if (e.key === "Enter" && mood.trim() && !isLoading) {
-                        getRecommendations()
+                        getRecommendations();
                       }
                     }}
                   />
@@ -116,7 +110,9 @@ export default function MovieMoodApp() {
               {isLoading && (
                 <div className="mt-4 flex items-center gap-2 text-gray-500">
                   <Sparkles className="w-4 h-4 animate-pulse" />
-                  <span className="text-sm font-light">Analyzing your mood...</span>
+                  <span className="text-sm font-light">
+                    Analyzing your mood...
+                  </span>
                 </div>
               )}
             </div>
@@ -127,8 +123,12 @@ export default function MovieMoodApp() {
         {recommendations.length > 0 && (
           <div className="w-full max-w-4xl">
             <div className="text-center mb-8">
-              <h2 className="text-2xl font-bold text-gray-900 mb-2">Curated for You</h2>
-              <p className="text-gray-600 font-light">Four films perfectly matched to your current state of mind</p>
+              <h2 className="text-2xl font-bold font-serif text-gray-900 mb-2">
+                Curated for You
+              </h2>
+              <p className="text-gray-600 font-light">
+                Four films perfectly matched to your current state of mind
+              </p>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               {recommendations.map((movie, index) => (
@@ -142,13 +142,15 @@ export default function MovieMoodApp() {
                         <Film className="w-6 h-6 text-white" />
                       </div>
                       <div className="flex-1">
-                        <h3 className="text-xl font-bold text-gray-900 mb-2 group-hover:text-gray-800 transition-colors">
+                        <h3 className="text-xl font-bold font-serif text-gray-900 mb-2 group-hover:text-gray-800 transition-colors">
                           {movie.title}
                         </h3>
                         <p className="text-gray-500 text-sm mb-3 font-medium">
                           {movie.year} • {movie.genre}
                         </p>
-                        <p className="text-gray-700 text-sm leading-relaxed font-light">{movie.reason}</p>
+                        <p className="text-gray-700 text-sm leading-relaxed font-light">
+                          {movie.reason}
+                        </p>
                       </div>
                     </div>
                   </CardContent>
@@ -159,5 +161,5 @@ export default function MovieMoodApp() {
         )}
       </div>
     </div>
-  )
+  );
 }

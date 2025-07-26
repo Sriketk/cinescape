@@ -1,12 +1,22 @@
 import type { Metadata } from 'next'
+import { Libre_Baskerville } from 'next/font/google'
 import { GeistSans } from 'geist/font/sans'
 import { GeistMono } from 'geist/font/mono'
 import './globals.css'
 
+// Libre Baskerville font configuration
+const libreBaskerville = Libre_Baskerville({
+  subsets: ['latin'],
+  weight: ['400', '700'],
+  style: ['normal', 'italic'],
+  variable: '--font-libre-baskerville',
+  display: 'swap',
+})
+
 export const metadata: Metadata = {
-  title: 'v0 App',
-  description: 'Created with v0',
-  generator: 'v0.dev',
+  title: 'Cinescape',
+  description: 'Discover your perfect film through the power of AI',
+  generator: 'Next.js',
 }
 
 export default function RootLayout({
@@ -15,11 +25,12 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" className={`${libreBaskerville.variable} ${GeistSans.variable} ${GeistMono.variable}`}>
       <head>
         <style>{`
 html {
-  font-family: ${GeistSans.style.fontFamily};
+  font-family: var(--font-libre-baskerville), ${GeistSans.style.fontFamily};
+  --font-serif: var(--font-libre-baskerville);
   --font-sans: ${GeistSans.variable};
   --font-mono: ${GeistMono.variable};
 }
