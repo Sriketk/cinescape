@@ -27,11 +27,11 @@ export async function getMovieRecommendations(mood: string) {
       system: `You are a movie recommendation expert. Based on the user's mood, recommend exactly 4 movies that would be perfect for how they're feeling. `,
       prompt: `The user is feeling: "${mood}". Please recommend 4 movies that would be perfect for this mood.`,
     });
-    
+
     console.log(object);
     return object;
   } catch (error) {
     console.error("Error generating recommendations:", error);
     throw new Error("Failed to generate recommendations");
   }
-} 
+}
