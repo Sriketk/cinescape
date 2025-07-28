@@ -35,7 +35,7 @@ export function MovieCarousel({ movies }: MovieCarouselProps) {
   if (movies.length === 0) return null;
 
   return (
-    <div className="w-full max-w-7xl mx-auto p-6  min-h-screen rounded-3xl">
+    <div className="w-full max-w-7xl mx-auto p-6 min-h-screen rounded-3xl">
       <div className="relative flex items-center justify-center h-[600px] perspective-1000">
         {/* Left Film */}
         {movies.length > 1 && (
