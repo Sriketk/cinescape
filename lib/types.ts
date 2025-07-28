@@ -34,11 +34,24 @@ export interface MovieRecommendation {
   year: string;
   genre: string;
   reason: string;
+  poster: string;
+  url: string;
 }
 
 export interface RecommendationsResponse {
   recommendations: MovieRecommendation[];
 }
+
+// API Response types
+export interface ApiMovieRecommendation {
+  title: string;
+  release_year: number;
+  predicted_rating: string;
+  poster: string;
+  url: string;
+}
+
+export type ApiRecommendationsResponse = ApiMovieRecommendation[];
 
 export const movieRecommendationSchema = z.object({
   title: z.string(),
@@ -56,9 +69,13 @@ export const movieRecommendationsInputSchema = z.object({
   username: z
     .string()
     .optional()
-    .describe("The Letterboxd username to get recommendations for (optional, only needed for personalized recommendations)"),
+    .default("sriketk")
+    .describe(
+      "The Letterboxd username to get recommendations for (optional, only needed for personalized recommendations)"
+    ),
   model_type: z
     .enum(["personalized", "generic"])
+    .default("personalized")
     .describe(
       "Whether to use personalized recommendations based on user history or generic recommendations"
     ),
@@ -96,16 +113,16 @@ export const movieRecommendationsInputSchema = z.object({
     .number()
     .int()
     .min(0)
-    .max(1000)
-    .default(180)
+    .max(600)
+    .default(130)
     .describe("Maximum runtime in minutes"),
   popularity: z
     .number()
-    .min(0)
+    .min(1)
     .max(6)
     .default(3)
     .describe(
-      "Popularity level (0 = very obscure, 6 = mainstream blockbusters)"
+      "Popularity level (1 = very obscure, 6 = mainstream blockbusters)"
     ),
 });
 

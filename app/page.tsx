@@ -4,10 +4,10 @@ import type React from "react";
 
 import { useState } from "react";
 import { Input } from "@/components/ui/input";
-import { Card, CardContent } from "@/components/ui/card";
-import { Film, Sparkles, ArrowRight } from "lucide-react";
+import { Sparkles, ArrowRight } from "lucide-react";
 import { getMovieRecommendations } from "./actions";
 import type { MovieRecommendation } from "@/lib/types";
+import { MovieCarousel } from "@/components/movie-carousel";
 
 export default function MovieMoodApp() {
   const [mood, setMood] = useState("");
@@ -106,42 +106,9 @@ export default function MovieMoodApp() {
 
         {/* Recommendations */}
         {recommendations.length > 0 && (
-          <div className="w-full max-w-4xl">
-            <div className="text-center mb-8">
-              <h2 className="text-2xl font-bold text-gray-900 mb-2">
-                Curated for You
-              </h2>
-              <p className="text-gray-600 font-light">
-                Four films perfectly matched to your current state of mind
-              </p>
-            </div>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              {recommendations.map((movie, index) => (
-                <Card
-                  key={index}
-                  className="group bg-white/70 backdrop-blur-xl border border-white/50 shadow-xl hover:shadow-2xl transition-all duration-300 hover:bg-white/80 hover:-translate-y-1"
-                >
-                  <CardContent className="p-6">
-                    <div className="flex items-start gap-4">
-                      <div className="w-12 h-12 bg-gradient-to-br from-amber-400 via-orange-500 to-yellow-600 rounded-2xl flex items-center justify-center flex-shrink-0 shadow-lg group-hover:shadow-xl transition-shadow duration-300">
-                        <Film className="w-6 h-6 text-white" />
-                      </div>
-                      <div className="flex-1">
-                        <h3 className="text-xl font-bold  text-gray-900 mb-2 group-hover:text-gray-800 transition-colors">
-                          {movie.title}
-                        </h3>
-                        <p className="text-gray-500 text-sm mb-3 font-medium">
-                          {movie.year} • {movie.genre}
-                        </p>
-                        <p className="text-gray-700 text-sm leading-relaxed font-light">
-                          {movie.reason}
-                        </p>
-                      </div>
-                    </div>
-                  </CardContent>
-                </Card>
-              ))}
-            </div>
+          <div className="w-full">
+            
+            <MovieCarousel movies={recommendations} />
           </div>
         )}
       </div>
