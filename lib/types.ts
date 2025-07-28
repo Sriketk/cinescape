@@ -66,13 +66,6 @@ export const recommendationsResponseSchema = z.object({
 
 // Tool input parameters schema
 export const movieRecommendationsInputSchema = z.object({
-  username: z
-    .string()
-    .optional()
-    .default("sriketk")
-    .describe(
-      "The Letterboxd username to get recommendations for (optional, only needed for personalized recommendations)"
-    ),
   model_type: z
     .enum(["personalized", "generic"])
     .default("personalized")

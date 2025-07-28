@@ -8,7 +8,7 @@ import { Input } from "@/components/ui/input";
 import { Sparkles, ArrowRight, User, X } from "lucide-react";
 import { getMovieRecommendations } from "./actions";
 import type { MovieRecommendation } from "@/lib/types";
-import { MovieCarousel } from "@/components/movie-carousel";
+import { Carousel } from "@/components/ui/mv-carouser";
 import Image from "next/image";
 
 export default function MovieMoodApp() {
@@ -30,7 +30,7 @@ export default function MovieMoodApp() {
     }
 
     try {
-      const data = await getMovieRecommendations(mood.trim());
+      const data = await getMovieRecommendations(mood.trim(), letterboxdUsername);
       setRecommendations(data.recommendations);
     } catch (error) {
       console.error("Error getting recommendations:", error);
@@ -265,7 +265,14 @@ export default function MovieMoodApp() {
               exit={{ opacity: 0, y: 50 }}
               transition={{ duration: 0.6, delay: 0.2 }}
             >
-              <MovieCarousel movies={recommendations} />
+              <Carousel 
+                slides={recommendations.map(movie => ({
+                  title: movie.title,
+                  button: "View on Letterboxd",
+                  src: movie.poster,
+                  url: `https://letterboxd.com${movie.url}`
+                }))} 
+              />
             </motion.div>
           )}
         </AnimatePresence>
