@@ -7,13 +7,7 @@ import { Input } from "@/components/ui/input";
 import { Card, CardContent } from "@/components/ui/card";
 import { Film, Sparkles, ArrowRight } from "lucide-react";
 import { getMovieRecommendations } from "./actions";
-
-interface MovieRecommendation {
-  title: string;
-  year: string;
-  genre: string;
-  reason: string;
-}
+import type { MovieRecommendation } from "@/lib/types";
 
 export default function MovieMoodApp() {
   const [mood, setMood] = useState("");
@@ -65,7 +59,7 @@ export default function MovieMoodApp() {
             {/* Enhanced outer glow */}
             <div className="absolute inset-0 bg-gradient-to-r from-amber-300/40 via-orange-300/40 to-yellow-300/40 rounded-3xl blur-2xl opacity-0 group-hover:opacity-100 transition-all duration-700 scale-105" />
             <div className="absolute inset-0 bg-gradient-to-r from-amber-200/20 via-orange-200/20 to-yellow-200/20 rounded-3xl blur-xl opacity-30 group-focus-within:opacity-60 transition-opacity duration-500" />
-            
+
             {/* Main container with warm tint */}
             <div className="relative bg-gradient-to-br from-white/90 via-amber-50/80 to-orange-50/70 backdrop-blur-xl shadow-2xl rounded-3xl p-8 border border-amber-200/30 transition-all duration-300 hover:shadow-3xl hover:border-amber-300/50 focus-within:border-orange-300/60 focus-within:bg-gradient-to-br focus-within:from-white/95 focus-within:via-amber-50/90 focus-within:to-orange-50/80">
               <div className="flex items-center gap-4">
