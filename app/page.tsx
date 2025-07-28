@@ -109,8 +109,8 @@ export default function MovieMoodApp() {
             transition={{ duration: 0.8, ease: "easeInOut" }}
           >
             <motion.div
-              initial={{ width: 48, height: 48 }}
-              whileHover={{ width: 220 }}
+              initial={{ width: 56, height: 56 }}
+              whileHover={{ width: 240 }}
               onHoverStart={() => setIsLetterboxdHovered(true)}
               onHoverEnd={() => setIsLetterboxdHovered(false)}
               transition={{ duration: 0.3 }}
@@ -118,7 +118,7 @@ export default function MovieMoodApp() {
             >
               {/* Letterboxd Logo - Always visible */}
               <motion.div
-                className="absolute left-3"
+                className="absolute left-4"
                 animate={{
                   opacity: isLetterboxdHovered ? 0 : 1,
                   scale: isLetterboxdHovered ? 0.8 : 1,
@@ -128,9 +128,9 @@ export default function MovieMoodApp() {
                 <Image
                   src="/letterboxd-mac-icon.png"
                   alt="Letterboxd"
-                  width={32}
-                  height={32}
-                  className="w-8 h-8 object-contain"
+                  width={40}
+                  height={40}
+                  className="w-10 h-10 object-contain"
                 />
               </motion.div>
 
@@ -144,13 +144,13 @@ export default function MovieMoodApp() {
                   delay: isLetterboxdHovered ? 0.1 : 0,
                 }}
               >
-                <div className="w-6 h-6 flex items-center justify-center">
+                <div className="w-7 h-7 flex items-center justify-center">
                   <Image
                     src="/letterboxd-mac-icon.png"
                     alt="Letterboxd"
-                    width={24}
-                    height={24}
-                    className="w-6 h-6 object-contain"
+                    width={28}
+                    height={28}
+                    className="w-7 h-7 object-contain"
                   />
                 </div>
                 <form onSubmit={handleLetterboxdSubmit} className="flex-1">
