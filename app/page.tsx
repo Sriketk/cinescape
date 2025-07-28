@@ -5,10 +5,11 @@ import type React from "react";
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Input } from "@/components/ui/input";
-import { Sparkles, ArrowRight } from "lucide-react";
+import { Sparkles, ArrowRight, User, X } from "lucide-react";
 import { getMovieRecommendations } from "./actions";
 import type { MovieRecommendation } from "@/lib/types";
 import { MovieCarousel } from "@/components/movie-carousel";
+import Image from "next/image";
 
 export default function MovieMoodApp() {
   const [mood, setMood] = useState("");
@@ -17,6 +18,8 @@ export default function MovieMoodApp() {
   );
   const [isLoading, setIsLoading] = useState(false);
   const [hasSearched, setHasSearched] = useState(false);
+  const [isLetterboxdHovered, setIsLetterboxdHovered] = useState(false);
+  const [letterboxdUsername, setLetterboxdUsername] = useState("");
 
   const getRecommendations = async () => {
     if (!mood.trim()) return;
@@ -25,7 +28,7 @@ export default function MovieMoodApp() {
     if (!hasSearched) {
       setHasSearched(true);
     }
-    
+
     try {
       const data = await getMovieRecommendations(mood.trim());
       setRecommendations(data.recommendations);
@@ -41,6 +44,16 @@ export default function MovieMoodApp() {
     getRecommendations();
   };
 
+  const handleLetterboxdSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (letterboxdUsername.trim()) {
+      // Here you can add logic to use the Letterboxd username
+      console.log("Letterboxd username:", letterboxdUsername.trim());
+      setIsLetterboxdHovered(false);
+      setLetterboxdUsername("");
+    }
+  };
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-amber-50 via-orange-50 to-yellow-50 relative overflow-hidden">
       {/* Subtle background elements */}
@@ -48,23 +61,27 @@ export default function MovieMoodApp() {
       <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-gradient-to-r from-amber-200/20 to-orange-200/20 rounded-full blur-3xl" />
       <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-gradient-to-r from-yellow-200/20 to-amber-200/20 rounded-full blur-3xl" />
 
-      <motion.div 
+      <motion.div
         className="relative z-10"
         layout
         transition={{ duration: 0.8, ease: "easeInOut" }}
       >
         <motion.div
-          className={`p-8 ${hasSearched ? 'flex flex-col items-center' : 'min-h-screen flex flex-col items-center justify-center'}`}
+          className={`p-8 ${
+            hasSearched
+              ? "flex flex-col items-center"
+              : "min-h-screen flex flex-col items-center justify-center"
+          }`}
           layout
           transition={{ duration: 0.8, ease: "easeInOut" }}
         >
           {/* Header */}
-          <motion.div 
-            className={`text-center ${hasSearched ? 'mb-8' : 'mb-12'}`}
+          <motion.div
+            className={`text-center ${hasSearched ? "mb-8" : "mb-12"}`}
             layout
             transition={{ duration: 0.8, ease: "easeInOut" }}
           >
-            <motion.h1 
+            <motion.h1
               className="p-2 text-5xl font-bold bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 bg-clip-text text-transparent"
               layout
               transition={{ duration: 0.8, ease: "easeInOut" }}
@@ -73,7 +90,7 @@ export default function MovieMoodApp() {
             </motion.h1>
             <AnimatePresence mode="wait">
               {!hasSearched && (
-                <motion.p 
+                <motion.p
                   className="text-lg mt-2s md:text-xl text-gray-600 max-w-2xl font-light leading-relaxed mt-6"
                   initial={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: -20 }}
@@ -85,9 +102,90 @@ export default function MovieMoodApp() {
             </AnimatePresence>
           </motion.div>
 
+          {/* Letterboxd Integration */}
+          <motion.div
+            className={`flex justify-center ${hasSearched ? "mb-6" : "mb-8"}`}
+            layout
+            transition={{ duration: 0.8, ease: "easeInOut" }}
+          >
+            <motion.div
+              initial={{ width: 48, height: 48 }}
+              whileHover={{ width: 220 }}
+              onHoverStart={() => setIsLetterboxdHovered(true)}
+              onHoverEnd={() => setIsLetterboxdHovered(false)}
+              transition={{ duration: 0.3 }}
+              className="flex items-center justify-center overflow-hidden relative"
+            >
+              {/* Letterboxd Logo - Always visible */}
+              <motion.div
+                className="absolute left-3"
+                animate={{
+                  opacity: isLetterboxdHovered ? 0 : 1,
+                  scale: isLetterboxdHovered ? 0.8 : 1,
+                }}
+                transition={{ duration: 0.2 }}
+              >
+                <Image
+                  src="/letterboxd-mac-icon.png"
+                  alt="Letterboxd"
+                  width={32}
+                  height={32}
+                  className="w-8 h-8 object-contain"
+                />
+              </motion.div>
+
+              {/* Username Input - Visible on hover */}
+              <motion.div
+                className="w-full flex items-center gap-3 px-3 bg-white/50 hover:bg-white/70 backdrop-blur-sm rounded-full border border-gray-200/50"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: isLetterboxdHovered ? 1 : 0 }}
+                transition={{
+                  duration: 0.2,
+                  delay: isLetterboxdHovered ? 0.1 : 0,
+                }}
+              >
+                <div className="w-6 h-6 flex items-center justify-center">
+                  <Image
+                    src="/letterboxd-mac-icon.png"
+                    alt="Letterboxd"
+                    width={24}
+                    height={24}
+                    className="w-6 h-6 object-contain"
+                  />
+                </div>
+                <form onSubmit={handleLetterboxdSubmit} className="flex-1">
+                  <Input
+                    value={letterboxdUsername}
+                    onChange={(e) => setLetterboxdUsername(e.target.value)}
+                    placeholder="username"
+                    className="w-full h-8 bg-transparent border-none text-sm text-gray-800 placeholder:text-gray-500 focus-visible:ring-0 focus-visible:ring-offset-0 text-center"
+                    onKeyDown={(e) => {
+                      if (e.key === "Escape") {
+                        setIsLetterboxdHovered(false);
+                        setLetterboxdUsername("");
+                      }
+                    }}
+                  />
+                </form>
+                <button
+                  type="button"
+                  onClick={() => {
+                    setIsLetterboxdHovered(false);
+                    setLetterboxdUsername("");
+                  }}
+                  className="w-5 h-5 flex items-center justify-center text-gray-400 hover:text-gray-600 rounded-full hover:bg-gray-100 transition-colors"
+                >
+                  <X className="w-3 h-3" />
+                </button>
+              </motion.div>
+            </motion.div>
+          </motion.div>
+
           {/* Input Section */}
-          <motion.div 
-            className={`w-full ${hasSearched ? 'max-w-4xl' : 'max-w-2xl'} ${hasSearched ? 'mb-8' : 'mb-12'}`}
+          <motion.div
+            className={`w-full ${hasSearched ? "max-w-4xl" : "max-w-2xl"} ${
+              hasSearched ? "mb-8" : "mb-12"
+            }`}
             layout
             transition={{ duration: 0.8, ease: "easeInOut" }}
           >
@@ -97,7 +195,7 @@ export default function MovieMoodApp() {
               <div className="absolute inset-0 bg-gradient-to-r from-amber-200/20 via-orange-200/20 to-yellow-200/20 rounded-3xl blur-xl opacity-30 group-focus-within:opacity-60 transition-opacity duration-500" />
 
               {/* Main container with warm tint */}
-              <motion.div 
+              <motion.div
                 className="relative bg-gradient-to-br from-white/90 via-amber-50/80 to-orange-50/70 backdrop-blur-xl shadow-2xl rounded-3xl p-8 border border-amber-200/30 transition-all duration-300 hover:shadow-3xl hover:border-amber-300/50 focus-within:border-orange-300/60 focus-within:bg-gradient-to-br focus-within:from-white/95 focus-within:via-amber-50/90 focus-within:to-orange-50/80"
                 layout
                 transition={{ duration: 0.8, ease: "easeInOut" }}
@@ -138,7 +236,7 @@ export default function MovieMoodApp() {
 
                 <AnimatePresence>
                   {isLoading && (
-                    <motion.div 
+                    <motion.div
                       className="mt-4 flex items-center gap-2 text-gray-500"
                       initial={{ opacity: 0, y: 10 }}
                       animate={{ opacity: 1, y: 0 }}
@@ -160,7 +258,7 @@ export default function MovieMoodApp() {
         {/* Recommendations */}
         <AnimatePresence>
           {recommendations.length > 0 && (
-            <motion.div 
+            <motion.div
               className="w-full"
               initial={{ opacity: 0, y: 50 }}
               animate={{ opacity: 1, y: 0 }}
