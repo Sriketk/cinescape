@@ -77,7 +77,7 @@ export default function MovieMoodApp() {
         >
           {/* Header */}
           <motion.div
-            className={`text-center ${hasSearched ? "mb-8" : "mb-12"}`}
+            className={`text-center ${hasSearched ? "mb-8" : "mb-12"} w-full flex flex-col items-center`}
             layout
             transition={{ duration: 0.8, ease: "easeInOut" }}
           >
@@ -91,7 +91,7 @@ export default function MovieMoodApp() {
             <AnimatePresence mode="wait">
               {!hasSearched && (
                 <motion.p
-                  className="text-lg mt-2s md:text-xl text-gray-600 max-w-2xl font-light leading-relaxed mt-6"
+                  className="text-lg md:text-xl text-gray-600 max-w-2xl font-light leading-relaxed mt-6 text-center mx-auto"
                   initial={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: -20 }}
                   transition={{ duration: 0.5, delay: 0.3 }}
@@ -104,7 +104,7 @@ export default function MovieMoodApp() {
 
           {/* Letterboxd Integration */}
           <motion.div
-            className={`flex justify-center ${hasSearched ? "mb-6" : "mb-8"}`}
+            className={`w-full flex justify-center ${hasSearched ? "mb-6" : "mb-8"}`}
             layout
             transition={{ duration: 0.8, ease: "easeInOut" }}
           >
@@ -185,11 +185,11 @@ export default function MovieMoodApp() {
           <motion.div
             className={`w-full ${hasSearched ? "max-w-4xl" : "max-w-2xl"} ${
               hasSearched ? "mb-8" : "mb-12"
-            }`}
+            } flex justify-center`}
             layout
             transition={{ duration: 0.8, ease: "easeInOut" }}
           >
-            <form onSubmit={handleSubmit} className="relative group">
+            <form onSubmit={handleSubmit} className="relative group w-full">
               {/* Enhanced outer glow */}
               <div className="absolute inset-0 bg-gradient-to-r from-amber-300/40 via-orange-300/40 to-yellow-300/40 rounded-3xl blur-2xl opacity-0 group-hover:opacity-100 transition-all duration-700 scale-105" />
               <div className="absolute inset-0 bg-gradient-to-r from-amber-200/20 via-orange-200/20 to-yellow-200/20 rounded-3xl blur-xl opacity-30 group-focus-within:opacity-60 transition-opacity duration-500" />
