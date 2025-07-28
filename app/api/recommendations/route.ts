@@ -11,7 +11,7 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: "Mood is required" }, { status: 400 });
     }
 
-    const {object} = await generateObject({
+    const { object } = await generateObject({
       model: openai("gpt-4o"),
       schemaName: "movie",
       schemaDescription: "A movie recommendation",
