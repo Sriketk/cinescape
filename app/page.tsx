@@ -6,6 +6,7 @@ import { useState } from "react";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent } from "@/components/ui/card";
 import { Film, Sparkles, ArrowRight } from "lucide-react";
+import { getMovieRecommendations } from "./actions";
 
 interface MovieRecommendation {
   title: string;
@@ -26,19 +27,7 @@ export default function MovieMoodApp() {
 
     setIsLoading(true);
     try {
-      const response = await fetch("/api/recommendations", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ mood: mood.trim() }),
-      });
-
-      if (!response.ok) {
-        throw new Error("Failed to get recommendations");
-      }
-
-      const data = await response.json();
+      const data = await getMovieRecommendations(mood.trim());
       setRecommendations(data.recommendations);
     } catch (error) {
       console.error("Error getting recommendations:", error);
