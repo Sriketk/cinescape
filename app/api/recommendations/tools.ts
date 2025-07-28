@@ -31,10 +31,7 @@ export const genreEnum = z.enum([
 ]);
 
 // Define predefined content types
-export const contentTypeEnum = z.enum([
-  "movie",
-  "tv"
-]);
+export const contentTypeEnum = z.enum(["movie", "tv"]);
 
 export const currentQuerySchema = z.object({
   usernames: z.array(z.string()),
