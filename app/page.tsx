@@ -68,7 +68,7 @@ export default function MovieMoodApp() {
         transition={{ duration: 0.8, ease: "easeInOut" }}
       >
         <motion.div
-          className={`p-8 ${
+          className={`p-4 md:p-8 ${
             hasSearched
               ? "flex flex-col items-center"
               : "min-h-screen flex flex-col items-center justify-center"
@@ -78,12 +78,12 @@ export default function MovieMoodApp() {
         >
           {/* Header */}
           <motion.div
-            className={`text-center ${hasSearched ? "mb-8" : "mb-12"} w-full flex flex-col items-center`}
+            className={`text-center ${hasSearched ? "mb-6 md:mb-8" : "mb-8 md:mb-12"} w-full flex flex-col items-center px-4`}
             layout
             transition={{ duration: 0.8, ease: "easeInOut" }}
           >
             <motion.h1
-              className="p-2 text-5xl font-bold bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 bg-clip-text text-transparent"
+              className="p-2 text-3xl md:text-5xl font-bold bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 bg-clip-text text-transparent"
               layout
               transition={{ duration: 0.8, ease: "easeInOut" }}
             >
@@ -92,7 +92,7 @@ export default function MovieMoodApp() {
             <AnimatePresence mode="wait">
               {!hasSearched && (
                 <motion.p
-                  className="text-lg md:text-xl text-gray-600 max-w-2xl font-light leading-relaxed mt-6 text-center mx-auto"
+                  className="text-base md:text-lg lg:text-xl text-gray-600 max-w-2xl font-light leading-relaxed mt-4 md:mt-6 text-center mx-auto px-4"
                   initial={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: -20 }}
                   transition={{ duration: 0.5, delay: 0.3 }}
@@ -105,7 +105,7 @@ export default function MovieMoodApp() {
 
           {/* Letterboxd Integration */}
           <motion.div
-            className={`w-full flex justify-center ${hasSearched ? "mb-6" : "mb-8"}`}
+            className={`w-full flex justify-center px-4 ${hasSearched ? "mb-4 md:mb-6" : "mb-6 md:mb-8"}`}
             layout
             transition={{ duration: 0.8, ease: "easeInOut" }}
           >
@@ -184,8 +184,8 @@ export default function MovieMoodApp() {
 
           {/* Input Section */}
           <motion.div
-            className={`w-full ${hasSearched ? "max-w-4xl" : "max-w-2xl"} ${
-              hasSearched ? "mb-8" : "mb-12"
+            className={`w-full px-4 ${hasSearched ? "max-w-4xl" : "max-w-2xl"} ${
+              hasSearched ? "mb-6 md:mb-8" : "mb-8 md:mb-12"
             } flex justify-center`}
             layout
             transition={{ duration: 0.8, ease: "easeInOut" }}
@@ -207,7 +207,7 @@ export default function MovieMoodApp() {
                   placeholder="What do you feel like watching?"
                   disabled={isLoading}
                   loading={isLoading}
-                  className="bg-gradient-to-br from-white/90 via-amber-50/80 to-orange-50/70 backdrop-blur-xl shadow-2xl border-amber-200/30 hover:shadow-3xl hover:border-amber-300/50 focus-within:border-orange-300/60 focus-within:bg-gradient-to-br focus-within:from-white/95 focus-within:via-amber-50/90 focus-within:to-orange-50/80 text-2xl [&_textarea]:text-2xl [&_textarea]:font-light [&_textarea]:text-center [&_textarea]:placeholder:text-center [&_textarea]:placeholder:font-normal [&_textarea]:text-gray-800 [&_textarea]:placeholder:text-gray-500/70 [&_textarea]:h-14 [&_textarea]:min-h-[3.5rem]"
+                  className="bg-gradient-to-br from-white/90 via-amber-50/80 to-orange-50/70 backdrop-blur-xl shadow-lg md:shadow-2xl border-amber-200/30 hover:shadow-xl md:hover:shadow-3xl hover:border-amber-300/50 focus-within:border-orange-300/60 focus-within:bg-gradient-to-br focus-within:from-white/95 focus-within:via-amber-50/90 focus-within:to-orange-50/80 text-lg md:text-2xl [&_textarea]:text-lg [&_textarea]:md:text-2xl [&_textarea]:font-light [&_textarea]:text-center [&_textarea]:placeholder:text-center [&_textarea]:placeholder:font-normal [&_textarea]:text-gray-800 [&_textarea]:placeholder:text-gray-500/70 [&_textarea]:h-12 [&_textarea]:md:h-14 [&_textarea]:min-h-[3rem] [&_textarea]:md:min-h-[3.5rem]"
                   onKeyDown={(e) => {
                     if (e.key === "Enter" && !e.shiftKey && mood.trim() && !isLoading) {
                       e.preventDefault();

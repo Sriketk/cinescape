@@ -70,30 +70,30 @@ export const PromptBox = React.forwardRef<HTMLTextAreaElement, React.TextareaHTM
     const hasValue = String(value || "").trim().length > 0;
 
     return (
-      <div className={cn("flex flex-col rounded-[28px] p-2 shadow-sm transition-colors bg-white border dark:bg-[#303030] dark:border-transparent cursor-text", className)}>
+      <div className={cn("flex flex-col rounded-2xl md:rounded-[28px] p-1.5 md:p-2 shadow-sm transition-colors bg-white border dark:bg-[#303030] dark:border-transparent cursor-text", className)}>
         <textarea 
           ref={internalTextareaRef} 
           rows={1} 
           value={value} 
           onChange={handleInputChange} 
           placeholder="Message..." 
-          className="w-full resize-none border-0 bg-transparent p-3 text-foreground dark:text-white placeholder:text-muted-foreground dark:placeholder:text-gray-300 focus:ring-0 focus-visible:outline-none min-h-12" 
+          className="w-full resize-none border-0 bg-transparent p-2 md:p-3 text-foreground dark:text-white placeholder:text-muted-foreground dark:placeholder:text-gray-300 focus:ring-0 focus-visible:outline-none min-h-12" 
           {...props} 
         />
         
         <div className="mt-0.5 p-1 pt-0">
           <TooltipProvider delayDuration={100}>
-            <div className="flex items-center justify-end gap-2">
+            <div className="flex items-center justify-end gap-1.5 md:gap-2">
                               <Tooltip>
                   <TooltipTrigger asChild>
                     <button 
                       type="submit" 
                       disabled={!hasValue || loading} 
-                      className="flex h-8 w-8 items-center justify-center rounded-full text-sm font-medium transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:pointer-events-none bg-black text-white hover:bg-black/80 dark:bg-white dark:text-black dark:hover:bg-white/80 disabled:bg-black/40 dark:disabled:bg-[#515151]"
+                      className="flex h-7 w-7 md:h-8 md:w-8 items-center justify-center rounded-full text-sm font-medium transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:pointer-events-none bg-black text-white hover:bg-black/80 dark:bg-white dark:text-black dark:hover:bg-white/80 disabled:bg-black/40 dark:disabled:bg-[#515151]"
                     >
                       <div className="relative flex items-center justify-center">
                         <SendIcon 
-                          className={`h-6 w-6 transition-all duration-200 ${
+                          className={`h-5 w-5 md:h-6 md:w-6 transition-all duration-200 ${
                             loading ? 'opacity-0 scale-50' : 'opacity-100 scale-100'
                           }`} 
                         />
@@ -102,7 +102,7 @@ export const PromptBox = React.forwardRef<HTMLTextAreaElement, React.TextareaHTM
                         }`}>
                           <Spinner 
                             variant="pinwheel"
-                            className="h-5 w-5 text-white dark:text-black"
+                            className="h-4 w-4 md:h-5 md:w-5 text-white dark:text-black"
                           />
                         </div>
                       </div>
