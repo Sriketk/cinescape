@@ -10,6 +10,7 @@ import { getMovieRecommendations } from "./actions";
 import type { MovieRecommendation } from "@/lib/types";
 import { Carousel } from "@/components/ui/mv-carouser";
 import Image from "next/image";
+import { PromptBox } from "@/components/ui/chat-prompt-input";
 
 export default function MovieMoodApp() {
   const [mood, setMood] = useState("");
@@ -194,63 +195,43 @@ export default function MovieMoodApp() {
               <div className="absolute inset-0 bg-gradient-to-r from-amber-300/40 via-orange-300/40 to-yellow-300/40 rounded-3xl blur-2xl opacity-0 group-hover:opacity-100 transition-all duration-700 scale-105" />
               <div className="absolute inset-0 bg-gradient-to-r from-amber-200/20 via-orange-200/20 to-yellow-200/20 rounded-3xl blur-xl opacity-30 group-focus-within:opacity-60 transition-opacity duration-500" />
 
-              {/* Main container with warm tint */}
+              {/* Main container with PromptBox */}
               <motion.div
-                className="relative bg-gradient-to-br from-white/90 via-amber-50/80 to-orange-50/70 backdrop-blur-xl shadow-2xl rounded-3xl p-8 border border-amber-200/30 transition-all duration-300 hover:shadow-3xl hover:border-amber-300/50 focus-within:border-orange-300/60 focus-within:bg-gradient-to-br focus-within:from-white/95 focus-within:via-amber-50/90 focus-within:to-orange-50/80"
+                className="relative"
                 layout
                 transition={{ duration: 0.8, ease: "easeInOut" }}
               >
-                <div className="flex items-center gap-4">
-                  <div className="flex-1">
-                    <Input
-                      value={mood}
-                      onChange={(e) => setMood(e.target.value)}
-                      placeholder="Describe your current mood or feeling..."
-                      className="bg-transparent border-none text-gray-800  placeholder:text-gray-500/70 text-2xl h-14 focus-visible:ring-0 focus-visible:ring-offset-0 font-light placeholder:font-normal text-center placeholder:text-center"
-                      disabled={isLoading}
-                      onKeyDown={(e) => {
-                        if (e.key === "Enter" && mood.trim() && !isLoading) {
-                          getRecommendations();
-                        }
-                      }}
-                    />
-                  </div>
-                  {mood.trim() && (
-                    <motion.button
-                      type="submit"
-                      disabled={isLoading}
-                      className="w-12 h-12 bg-gradient-to-r from-amber-600 via-orange-600 to-yellow-600 rounded-2xl flex items-center justify-center shadow-lg hover:shadow-xl hover:from-amber-700 hover:via-orange-700 hover:to-yellow-700 transition-all duration-200 hover:scale-105 disabled:opacity-50 disabled:hover:scale-100 ring-1 ring-amber-300/20"
-                      initial={{ scale: 0 }}
-                      animate={{ scale: 1 }}
-                      exit={{ scale: 0 }}
-                      transition={{ duration: 0.3 }}
-                    >
-                      {isLoading ? (
-                        <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
-                      ) : (
-                        <ArrowRight className="w-5 h-5 text-white" />
-                      )}
-                    </motion.button>
-                  )}
-                </div>
-
-                <AnimatePresence>
-                  {isLoading && (
-                    <motion.div
-                      className="mt-4 flex items-center gap-2 text-gray-500"
-                      initial={{ opacity: 0, y: 10 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      exit={{ opacity: 0, y: -10 }}
-                      transition={{ duration: 0.3 }}
-                    >
-                      <Sparkles className="w-4 h-4 animate-pulse" />
-                      <span className="text-sm font-light">
-                        Analyzing your mood...
-                      </span>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
+                <PromptBox
+                  value={mood}
+                  onChange={(e) => setMood(e.target.value)}
+                  placeholder="What do you feel like watching?"
+                  disabled={isLoading}
+                  className="bg-gradient-to-br from-white/90 via-amber-50/80 to-orange-50/70 backdrop-blur-xl shadow-2xl border-amber-200/30 hover:shadow-3xl hover:border-amber-300/50 focus-within:border-orange-300/60 focus-within:bg-gradient-to-br focus-within:from-white/95 focus-within:via-amber-50/90 focus-within:to-orange-50/80 text-2xl [&_textarea]:text-2xl [&_textarea]:font-light [&_textarea]:text-center [&_textarea]:placeholder:text-center [&_textarea]:placeholder:font-normal [&_textarea]:text-gray-800 [&_textarea]:placeholder:text-gray-500/70 [&_textarea]:h-14 [&_textarea]:min-h-[3.5rem]"
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter" && !e.shiftKey && mood.trim() && !isLoading) {
+                      e.preventDefault();
+                      getRecommendations();
+                    }
+                  }}
+                />
               </motion.div>
+
+              <AnimatePresence>
+                {isLoading && (
+                  <motion.div
+                    className="mt-4 flex items-center gap-2 text-gray-500 justify-center"
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -10 }}
+                    transition={{ duration: 0.3 }}
+                  >
+                    <Sparkles className="w-4 h-4 animate-pulse" />
+                    <span className="text-sm font-light">
+                      Analyzing your mood...
+                    </span>
+                  </motion.div>
+                )}
+              </AnimatePresence>
             </form>
           </motion.div>
         </motion.div>
