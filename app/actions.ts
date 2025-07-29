@@ -111,7 +111,6 @@ export async function getMovieRecommendations(
             "Get personalized movie recommendations based on user's mood, preferences, and Letterboxd profile",
           parameters: movieRecommendationsInputSchema,
           execute: async ({
-            model_type,
             genres,
             content_types,
             min_release_year,
@@ -123,7 +122,6 @@ export async function getMovieRecommendations(
             // Your actual recommendation logic here
             // This is a placeholder - replace with your real API call
             console.log("Getting recommendations for:", {
-              model_type,
               genres,
               content_types,
               min_release_year,
@@ -163,7 +161,7 @@ export async function getMovieRecommendations(
                     usernames: letterboxd_username
                       ? [letterboxd_username]
                       : ["sriketk"],
-                    model_type,
+                    model_type: "personalized",
                     genres,
                     content_types,
                     min_release_year,
@@ -184,10 +182,10 @@ export async function getMovieRecommendations(
 
             const apiResult: ApiRecommendationsResponse = await response.json();
             console.log("API Response:", apiResult);
-            
+
             // Transform API response to match frontend expectations
-            const transformedRecommendations: MovieRecommendation[] = apiResult.map(
-              (movie, index) => ({
+            const transformedRecommendations: MovieRecommendation[] =
+              apiResult.map((movie, index) => ({
                 title: movie.title,
                 year: movie.release_year.toString(), // Convert number to string
                 genre: genres[index % genres.length] || "drama", // Use provided genres cyclically
@@ -198,8 +196,7 @@ export async function getMovieRecommendations(
                 } should be a great match for your current mood.`,
                 poster: movie.poster,
                 url: movie.url,
-              })
-            );
+              }));
 
             return {
               recommendations: transformedRecommendations,
@@ -229,7 +226,6 @@ export async function getMovieRecommendations(
     console.log("FIELDS");
     console.log(toolResults[0]?.args?.genres);
     console.log(toolResults[0]?.args?.content_types);
-    console.log(toolResults[0]?.args?.genres);
 
     const firstResult = toolResults[0]?.result as
       | RecommendationsResponse

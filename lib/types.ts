@@ -66,12 +66,6 @@ export const recommendationsResponseSchema = z.object({
 
 // Tool input parameters schema
 export const movieRecommendationsInputSchema = z.object({
-  model_type: z
-    .enum(["personalized", "generic"])
-    .default("personalized")
-    .describe(
-      "Whether to use personalized recommendations based on user history or generic recommendations"
-    ),
   genres: z
     .array(genreEnum)
     .min(1)
