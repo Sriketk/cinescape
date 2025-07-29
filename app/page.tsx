@@ -20,6 +20,7 @@ export default function MovieMoodApp() {
   const [isLoading, setIsLoading] = useState(false);
   const [hasSearched, setHasSearched] = useState(false);
   const [isLetterboxdHovered, setIsLetterboxdHovered] = useState(false);
+  const [isLetterboxdExpanded, setIsLetterboxdExpanded] = useState(false);
   const [letterboxdUsername, setLetterboxdUsername] = useState("");
 
   const getRecommendations = async () => {
@@ -51,6 +52,7 @@ export default function MovieMoodApp() {
       // Here you can add logic to use the Letterboxd username
       console.log("Letterboxd username:", letterboxdUsername.trim());
       setIsLetterboxdHovered(false);
+      setIsLetterboxdExpanded(false);
       setLetterboxdUsername("");
     }
   };
@@ -111,18 +113,19 @@ export default function MovieMoodApp() {
           >
             <motion.div
               initial={{ width: 56, height: 56 }}
-              whileHover={{ width: 240 }}
+              animate={{ width: (isLetterboxdHovered || isLetterboxdExpanded) ? 240 : 56 }}
               onHoverStart={() => setIsLetterboxdHovered(true)}
               onHoverEnd={() => setIsLetterboxdHovered(false)}
               transition={{ duration: 0.3 }}
-              className="flex items-center justify-center overflow-hidden relative"
+              className="flex items-center justify-center overflow-hidden relative cursor-pointer"
+              onClick={() => setIsLetterboxdExpanded(!isLetterboxdExpanded)}
             >
               {/* Letterboxd Logo - Always visible */}
               <motion.div
                 className="absolute left-4"
                 animate={{
-                  opacity: isLetterboxdHovered ? 0 : 1,
-                  scale: isLetterboxdHovered ? 0.8 : 1,
+                  opacity: (isLetterboxdHovered || isLetterboxdExpanded) ? 0 : 1,
+                  scale: (isLetterboxdHovered || isLetterboxdExpanded) ? 0.8 : 1,
                 }}
                 transition={{ duration: 0.2 }}
               >
@@ -135,15 +138,16 @@ export default function MovieMoodApp() {
                 />
               </motion.div>
 
-              {/* Username Input - Visible on hover */}
+              {/* Username Input - Visible on hover/click */}
               <motion.div
                 className="w-full flex items-center gap-3 px-3 bg-white/50 hover:bg-white/70 backdrop-blur-sm rounded-full border border-gray-200/50"
                 initial={{ opacity: 0 }}
-                animate={{ opacity: isLetterboxdHovered ? 1 : 0 }}
+                animate={{ opacity: (isLetterboxdHovered || isLetterboxdExpanded) ? 1 : 0 }}
                 transition={{
                   duration: 0.2,
-                  delay: isLetterboxdHovered ? 0.1 : 0,
+                  delay: (isLetterboxdHovered || isLetterboxdExpanded) ? 0.1 : 0,
                 }}
+                onClick={(e) => e.stopPropagation()} // Prevent closing when clicking inside
               >
                 <div className="w-7 h-7 flex items-center justify-center">
                   <Image
@@ -163,6 +167,7 @@ export default function MovieMoodApp() {
                     onKeyDown={(e) => {
                       if (e.key === "Escape") {
                         setIsLetterboxdHovered(false);
+                        setIsLetterboxdExpanded(false);
                         setLetterboxdUsername("");
                       }
                     }}
@@ -170,8 +175,10 @@ export default function MovieMoodApp() {
                 </form>
                 <button
                   type="button"
-                  onClick={() => {
+                  onClick={(e) => {
+                    e.stopPropagation(); // Prevent triggering the parent click
                     setIsLetterboxdHovered(false);
+                    setIsLetterboxdExpanded(false);
                     setLetterboxdUsername("");
                   }}
                   className="w-5 h-5 flex items-center justify-center text-gray-400 hover:text-gray-600 rounded-full hover:bg-gray-100 transition-colors"
