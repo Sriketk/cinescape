@@ -29,23 +29,22 @@ const Slide = ({ slide, index, current, handleSlideClick }: SlideProps) => {
   const { src, button, title } = slide;
 
   return (
-    <div className="[perspective:1200px] [transform-style:preserve-3d]">
-      <li
-        ref={slideRef}
-        className="flex flex-1 flex-col items-center justify-center relative text-center text-white opacity-100 transition-all duration-300 ease-in-out w-80 h-96 mx-4 z-10"
-        onClick={() => handleSlideClick(index)}
-        style={{
-          transform:
-            current !== index
-              ? "scale(0.98)"
-              : "scale(1)",
-          transition: "transform 0.5s cubic-bezier(0.4, 0, 0.2, 1)",
-          transformOrigin: "center",
-        }}
+    <li
+      ref={slideRef}
+      className="flex flex-1 flex-col items-center justify-center relative text-center text-white opacity-100 transition-all duration-300 ease-in-out w-80 h-96 mx-4 z-10 [perspective:1200px] [transform-style:preserve-3d]"
+      onClick={() => handleSlideClick(index)}
+      style={{
+        transform:
+          current !== index
+            ? "scale(0.98)"
+            : "scale(1)",
+        transition: "transform 0.5s cubic-bezier(0.4, 0, 0.2, 1)",
+        transformOrigin: "center",
+      }}
+    >
+      <div
+        className="absolute top-0 left-0 w-full h-full rounded-2xl overflow-hidden transition-all duration-150 ease-out shadow-lg"
       >
-        <div
-          className="absolute top-0 left-0 w-full h-full rounded-[1%] overflow-hidden transition-all duration-150 ease-out"
-        >
           <a
             href={slide.url}
             target="_blank"
@@ -53,7 +52,7 @@ const Slide = ({ slide, index, current, handleSlideClick }: SlideProps) => {
             className="absolute inset-0 w-full h-full"
           >
             <Image
-              className="w-full h-full object-contain opacity-100 transition-opacity duration-600 ease-in-out rounded-lg"
+              className="w-full h-full object-cover opacity-100 transition-opacity duration-600 ease-in-out rounded-2xl"
               style={{
                 opacity: current === index ? 1 : 0.5,
               }}
@@ -67,10 +66,7 @@ const Slide = ({ slide, index, current, handleSlideClick }: SlideProps) => {
           </a>
 
         </div>
-
-
       </li>
-    </div>
   );
 };
 
