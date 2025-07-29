@@ -206,6 +206,7 @@ export default function MovieMoodApp() {
                   onChange={(e) => setMood(e.target.value)}
                   placeholder="What do you feel like watching?"
                   disabled={isLoading}
+                  loading={isLoading}
                   className="bg-gradient-to-br from-white/90 via-amber-50/80 to-orange-50/70 backdrop-blur-xl shadow-2xl border-amber-200/30 hover:shadow-3xl hover:border-amber-300/50 focus-within:border-orange-300/60 focus-within:bg-gradient-to-br focus-within:from-white/95 focus-within:via-amber-50/90 focus-within:to-orange-50/80 text-2xl [&_textarea]:text-2xl [&_textarea]:font-light [&_textarea]:text-center [&_textarea]:placeholder:text-center [&_textarea]:placeholder:font-normal [&_textarea]:text-gray-800 [&_textarea]:placeholder:text-gray-500/70 [&_textarea]:h-14 [&_textarea]:min-h-[3.5rem]"
                   onKeyDown={(e) => {
                     if (e.key === "Enter" && !e.shiftKey && mood.trim() && !isLoading) {

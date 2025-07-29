@@ -1,6 +1,7 @@
 // component.tsx
 import * as React from "react";
 import * as TooltipPrimitive from "@radix-ui/react-tooltip";
+import { Spinner } from "./spinner";
 
 // --- Utility Function & Radix Primitives (Unchanged) ---
 type ClassValue = string | number | boolean | null | undefined;
@@ -28,8 +29,8 @@ const MicIcon = (props: React.SVGProps<SVGSVGElement>) => ( <svg width="24" heig
 const toolsList = [ { id: 'createImage', name: 'Create an image', shortName: 'Image', icon: PaintBrushIcon }, { id: 'searchWeb', name: 'Search the web', shortName: 'Search', icon: GlobeIcon }, { id: 'writeCode', name: 'Write or code', shortName: 'Write', icon: PencilIcon }, { id: 'deepResearch', name: 'Run deep research', shortName: 'Deep Search', icon: TelescopeIcon, extra: '5 left' }, { id: 'thinkLonger', name: 'Think for longer', shortName: 'Think', icon: LightbulbIcon }, ];
 
 // --- The Final, Self-Contained PromptBox Component ---
-export const PromptBox = React.forwardRef<HTMLTextAreaElement, React.TextareaHTMLAttributes<HTMLTextAreaElement>>(
-  ({ className, ...props }, ref) => {
+export const PromptBox = React.forwardRef<HTMLTextAreaElement, React.TextareaHTMLAttributes<HTMLTextAreaElement> & { loading?: boolean }>(
+  ({ className, loading = false, ...props }, ref) => {
     // ... all state and handlers are unchanged ...
     const internalTextareaRef = React.useRef<HTMLTextAreaElement>(null);
     const [internalValue, setInternalValue] = React.useState("");
@@ -83,15 +84,35 @@ export const PromptBox = React.forwardRef<HTMLTextAreaElement, React.TextareaHTM
         <div className="mt-0.5 p-1 pt-0">
           <TooltipProvider delayDuration={100}>
             <div className="flex items-center justify-end gap-2">
-              <Tooltip>
-                <TooltipTrigger asChild>
-                  <button type="submit" disabled={!hasValue} className="flex h-8 w-8 items-center justify-center rounded-full text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:pointer-events-none bg-black text-white hover:bg-black/80 dark:bg-white dark:text-black dark:hover:bg-white/80 disabled:bg-black/40 dark:disabled:bg-[#515151]">
-                    <SendIcon className="h-6 w-6 text-bold" />
-                    <span className="sr-only">Send message</span>
-                  </button>
-                </TooltipTrigger>
-                <TooltipContent side="top" showArrow={true}><p>Send</p></TooltipContent>
-              </Tooltip>
+                              <Tooltip>
+                  <TooltipTrigger asChild>
+                    <button 
+                      type="submit" 
+                      disabled={!hasValue || loading} 
+                      className="flex h-8 w-8 items-center justify-center rounded-full text-sm font-medium transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:pointer-events-none bg-black text-white hover:bg-black/80 dark:bg-white dark:text-black dark:hover:bg-white/80 disabled:bg-black/40 dark:disabled:bg-[#515151]"
+                    >
+                      <div className="relative flex items-center justify-center">
+                        <SendIcon 
+                          className={`h-6 w-6 transition-all duration-200 ${
+                            loading ? 'opacity-0 scale-50' : 'opacity-100 scale-100'
+                          }`} 
+                        />
+                        <div className={`absolute inset-0 flex items-center justify-center transition-all duration-200 ${
+                          loading ? 'opacity-100 scale-100' : 'opacity-0 scale-50'
+                        }`}>
+                          <Spinner 
+                            variant="pinwheel"
+                            className="h-5 w-5 text-white dark:text-black"
+                          />
+                        </div>
+                      </div>
+                      <span className="sr-only">{loading ? 'Sending...' : 'Send message'}</span>
+                    </button>
+                  </TooltipTrigger>
+                  <TooltipContent side="top" showArrow={true}>
+                    <p>{loading ? 'Sending...' : 'Send'}</p>
+                  </TooltipContent>
+                </Tooltip>
             </div>
           </TooltipProvider>
         </div>
