@@ -258,7 +258,7 @@ export default function MovieMoodApp() {
                     duration={2}
                     colorFrom="#f59e0b"
                     colorTo="#f97316"
-                    className=" rounded-[28px]"
+                    className=" sm:rounded-[28px]"
                   />
                 )}
               </motion.div>
