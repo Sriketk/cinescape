@@ -11,6 +11,7 @@ import type { MovieRecommendation } from "@/lib/types";
 import { Carousel } from "@/components/ui/mv-carouser";
 import Image from "next/image";
 import { PromptBox } from "@/components/ui/chat-prompt-input";
+import { BorderBeam } from "@/components/ui/border-beam";
 
 export default function MovieMoodApp() {
   const [mood, setMood] = useState("");
@@ -252,9 +253,15 @@ export default function MovieMoodApp() {
                     }
                   }}
                 />
+                {isLoading && (
+                  <BorderBeam
+                    duration={2}
+                    colorFrom="#f59e0b"
+                    colorTo="#f97316"
+                    className="rounded-2xl md:rounded-[28px]"
+                  />
+                )}
               </motion.div>
-
-
             </form>
           </motion.div>
         </motion.div>

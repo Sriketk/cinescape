@@ -8,6 +8,37 @@
   }
 }
 
+@layer components {
+  @keyframes gradientShift {
+    0% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+    100% {
+      background-position: 0% 50%;
+    }
+  }
+  
+  @keyframes borderRotate {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+  
+  .animate-gradient-shift {
+    animation: gradientShift 2s ease-in-out infinite;
+  }
+  
+  .animate-border-rotate {
+    animation: borderRotate 3s linear infinite;
+  }
+}
+
 @layer base {
   :root {
     --background: 0 0% 100%;
