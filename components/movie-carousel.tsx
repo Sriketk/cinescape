@@ -47,13 +47,13 @@ export function MovieCarousel({ movies }: MovieCarouselProps) {
               onClick={goToPrevious}
             >
               <CardContent className="p-0">
-                <div className="relative overflow-hidden rounded-lg">
+                <div className="relative overflow-hidden rounded-lg bg-slate-800/30 p-2">
                   <Image
                     src={getMovieAtPosition(-1).poster}
                     alt={`${getMovieAtPosition(-1).title} poster`}
                     width={400}
                     height={600}
-                    className="w-full h-auto object-cover"
+                    className="w-full h-auto object-contain rounded-lg"
                     onError={(e) => {
                       (e.target as HTMLImageElement).src = "/placeholder.svg";
                     }}
@@ -75,20 +75,20 @@ export function MovieCarousel({ movies }: MovieCarouselProps) {
           >
             <Card className="w-80 bg-slate-800 border-slate-600 shadow-2xl group cursor-pointer hover:scale-105 transition-transform duration-300">
               <CardContent className="p-0">
-                <div className="relative overflow-hidden rounded-lg">
+                <div className="relative overflow-hidden rounded-lg bg-slate-800/30 p-2">
                   <Image
                     src={movies[currentIndex].poster}
                     alt={`${movies[currentIndex].title} poster`}
                     width={400}
                     height={600}
-                    className="w-full h-auto object-cover"
+                    className="w-full h-auto object-contain rounded-lg"
                     onError={(e) => {
                       (e.target as HTMLImageElement).src = "/placeholder.svg";
                     }}
                   />
 
                   {/* Rating - Always visible */}
-                  <div className="absolute top-4 right-4 flex items-center gap-1 bg-black/50 backdrop-blur-sm px-2 py-1 rounded-lg">
+                  <div className="absolute top-6 right-6 flex items-center gap-1 bg-black/50 backdrop-blur-sm px-2 py-1 rounded-lg">
                     <Star className="w-4 h-4 fill-yellow-400 text-yellow-400" />
                     <span className="text-white font-medium text-sm">
                       {movies[currentIndex].reason.match(
@@ -113,13 +113,13 @@ export function MovieCarousel({ movies }: MovieCarouselProps) {
               onClick={goToNext}
             >
               <CardContent className="p-0">
-                <div className="relative overflow-hidden rounded-lg">
+                <div className="relative overflow-hidden rounded-lg bg-slate-800/30 p-2">
                   <Image
                     src={getMovieAtPosition(1).poster}
                     alt={`${getMovieAtPosition(1).title} poster`}
                     width={400}
                     height={600}
-                    className="w-full h-auto object-cover"
+                    className="w-full h-auto object-contain rounded-lg"
                     onError={(e) => {
                       (e.target as HTMLImageElement).src = "/placeholder.svg";
                     }}

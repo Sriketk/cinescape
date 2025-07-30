@@ -32,7 +32,10 @@ export default function MovieMoodApp() {
     }
 
     try {
-      const data = await getMovieRecommendations(mood.trim(), letterboxdUsername);
+      const data = await getMovieRecommendations(
+        mood.trim(),
+        letterboxdUsername
+      );
       setRecommendations(data.recommendations);
     } catch (error) {
       console.error("Error getting recommendations:", error);
@@ -80,7 +83,9 @@ export default function MovieMoodApp() {
         >
           {/* Header */}
           <motion.div
-            className={`text-center ${hasSearched ? "mb-6 md:mb-8" : "mb-8 md:mb-12"} w-full flex flex-col items-center px-4`}
+            className={`text-center ${
+              hasSearched ? "mb-6 md:mb-8" : "mb-8 md:mb-12"
+            } w-full flex flex-col items-center px-4`}
             layout
             transition={{ duration: 0.8, ease: "easeInOut" }}
           >
@@ -107,13 +112,17 @@ export default function MovieMoodApp() {
 
           {/* Letterboxd Integration */}
           <motion.div
-            className={`w-full flex justify-center px-4 ${hasSearched ? "mb-4 md:mb-6" : "mb-6 md:mb-8"}`}
+            className={`w-full flex justify-center px-4 ${
+              hasSearched ? "mb-4 md:mb-6" : "mb-6 md:mb-8"
+            }`}
             layout
             transition={{ duration: 0.8, ease: "easeInOut" }}
           >
             <motion.div
               initial={{ width: 56, height: 56 }}
-              animate={{ width: (isLetterboxdHovered || isLetterboxdExpanded) ? 240 : 56 }}
+              animate={{
+                width: isLetterboxdHovered || isLetterboxdExpanded ? 240 : 56,
+              }}
               onHoverStart={() => setIsLetterboxdHovered(true)}
               onHoverEnd={() => setIsLetterboxdHovered(false)}
               transition={{ duration: 0.3 }}
@@ -124,8 +133,8 @@ export default function MovieMoodApp() {
               <motion.div
                 className="absolute left-4"
                 animate={{
-                  opacity: (isLetterboxdHovered || isLetterboxdExpanded) ? 0 : 1,
-                  scale: (isLetterboxdHovered || isLetterboxdExpanded) ? 0.8 : 1,
+                  opacity: isLetterboxdHovered || isLetterboxdExpanded ? 0 : 1,
+                  scale: isLetterboxdHovered || isLetterboxdExpanded ? 0.8 : 1,
                 }}
                 transition={{ duration: 0.2 }}
               >
@@ -142,10 +151,12 @@ export default function MovieMoodApp() {
               <motion.div
                 className="w-full flex items-center gap-3 px-3 bg-white/50 hover:bg-white/70 backdrop-blur-sm rounded-full border border-gray-200/50"
                 initial={{ opacity: 0 }}
-                animate={{ opacity: (isLetterboxdHovered || isLetterboxdExpanded) ? 1 : 0 }}
+                animate={{
+                  opacity: isLetterboxdHovered || isLetterboxdExpanded ? 1 : 0,
+                }}
                 transition={{
                   duration: 0.2,
-                  delay: (isLetterboxdHovered || isLetterboxdExpanded) ? 0.1 : 0,
+                  delay: isLetterboxdHovered || isLetterboxdExpanded ? 0.1 : 0,
                 }}
                 onClick={(e) => e.stopPropagation()} // Prevent closing when clicking inside
               >
@@ -191,7 +202,9 @@ export default function MovieMoodApp() {
 
           {/* Input Section */}
           <motion.div
-            className={`w-full px-4 ${hasSearched ? "max-w-4xl" : "max-w-2xl"} ${
+            className={`w-full px-4 ${
+              hasSearched ? "max-w-4xl" : "max-w-2xl"
+            } ${
               hasSearched ? "mb-6 md:mb-8" : "mb-8 md:mb-12"
             } flex justify-center`}
             layout
@@ -214,9 +227,14 @@ export default function MovieMoodApp() {
                   placeholder="What do you feel like watching?"
                   disabled={isLoading}
                   loading={isLoading}
-                  className="bg-gradient-to-br from-white/90 via-amber-50/80 to-orange-50/70 backdrop-blur-xl shadow-lg md:shadow-2xl border-amber-200/30 hover:shadow-xl md:hover:shadow-3xl hover:border-amber-300/50 focus-within:border-orange-300/60 focus-within:bg-gradient-to-br focus-within:from-white/95 focus-within:via-amber-50/90 focus-within:to-orange-50/80 text-lg md:text-2xl [&_textarea]:text-lg [&_textarea]:md:text-2xl [&_textarea]:font-light [&_textarea]:text-center [&_textarea]:placeholder:text-center [&_textarea]:placeholder:font-normal [&_textarea]:text-gray-800 [&_textarea]:placeholder:text-gray-500/70 [&_textarea]:h-12 [&_textarea]:md:h-14 [&_textarea]:min-h-[3rem] [&_textarea]:md:min-h-[3.5rem]"
+                  className="bg-gradient-to-br from-white/90 via-amber-50/80 to-orange-50/70 backdrop-blur-xl shadow-lg md:shadow-2xl border-amber-200/30 hover:shadow-xl md:hover:shadow-3xl hover:border-amber-300/50 focus-within:border-orange-300/60 focus-within:bg-gradient-to-br focus-within:from-white/95 focus-within:via-amber-50/90 focus-within:to-orange-50/80 text-sm md:text-base [&_textarea]:text-sm [&_textarea]:md:text-base [&_textarea]:font-light [&_textarea]:text-center [&_textarea]:placeholder:text-center [&_textarea]:placeholder:font-normal [&_textarea]:text-gray-800 [&_textarea]:placeholder:text-gray-500/70 [&_textarea]:h-10 [&_textarea]:md:h-12 [&_textarea]:min-h-[2.5rem] [&_textarea]:md:min-h-[3rem]"
                   onKeyDown={(e) => {
-                    if (e.key === "Enter" && !e.shiftKey && mood.trim() && !isLoading) {
+                    if (
+                      e.key === "Enter" &&
+                      !e.shiftKey &&
+                      mood.trim() &&
+                      !isLoading
+                    ) {
                       e.preventDefault();
                       getRecommendations();
                     }
@@ -254,13 +272,13 @@ export default function MovieMoodApp() {
               exit={{ opacity: 0, y: 50 }}
               transition={{ duration: 0.6, delay: 0.2 }}
             >
-              <Carousel 
-                slides={recommendations.map(movie => ({
+              <Carousel
+                slides={recommendations.map((movie) => ({
                   title: movie.title,
                   button: "View on Letterboxd",
                   src: movie.poster,
-                  url: `https://letterboxd.com${movie.url}`
-                }))} 
+                  url: `https://letterboxd.com${movie.url}`,
+                }))}
               />
             </motion.div>
           )}

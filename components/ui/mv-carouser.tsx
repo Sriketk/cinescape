@@ -20,8 +20,6 @@ interface SlideProps {
 const Slide = ({ slide, index, current, handleSlideClick }: SlideProps) => {
   const slideRef = useRef<HTMLLIElement>(null);
 
-
-
   const imageLoaded = (event: React.SyntheticEvent<HTMLImageElement>) => {
     event.currentTarget.style.opacity = "1";
   };
@@ -34,39 +32,21 @@ const Slide = ({ slide, index, current, handleSlideClick }: SlideProps) => {
       className="flex flex-1 flex-col items-center justify-center relative text-center text-white opacity-100 transition-all duration-300 ease-in-out w-80 h-96 mx-4 z-10 [perspective:1200px] [transform-style:preserve-3d]"
       onClick={() => handleSlideClick(index)}
       style={{
-        transform:
-          current !== index
-            ? "scale(0.98)"
-            : "scale(1)",
+        transform: current !== index ? "scale(0.98)" : "scale(1)",
         transition: "transform 0.5s cubic-bezier(0.4, 0, 0.2, 1)",
         transformOrigin: "center",
       }}
     >
-      <div
-        className="absolute top-0 left-0 w-full h-full rounded-2xl overflow-hidden transition-all duration-150 ease-out shadow-lg"
-      >
-          <a
-            href={slide.url}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="absolute inset-0 w-full h-full"
-          >
-            <Image
-              className="w-full h-full object-cover opacity-100 transition-opacity duration-600 ease-in-out rounded-2xl"
-              style={{
-                opacity: current === index ? 1 : 0.5,
-              }}
-              alt={title}
-              src={src}
-              fill
-              sizes="(max-width: 768px) 100vw, 320px"
-              priority={index === 0}
-              onLoad={imageLoaded}
-            />
-          </a>
-
-        </div>
-      </li>
+      <Image
+        alt={title}
+        src={src}
+        width={250}
+        height={250}
+        className="rounded-2xl object-cover"
+        priority={index === 0}
+        onLoad={imageLoaded}
+      />
+    </li>
   );
 };
 
