@@ -94,18 +94,19 @@ export default function MovieMoodApp() {
             >
               Cinescape
             </motion.h1>
-            <AnimatePresence mode="wait">
-              {!hasSearched && (
-                <motion.p
-                  className="text-base md:text-lg lg:text-xl text-gray-600 max-w-2xl font-light leading-relaxed mt-4 md:mt-6 text-center mx-auto px-4"
-                  initial={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -20 }}
-                  transition={{ duration: 0.5, delay: 0.3 }}
-                >
-                  Stop stalling. Find your next movie.
-                </motion.p>
-              )}
-            </AnimatePresence>
+            <motion.p
+              className="text-base md:text-lg lg:text-xl text-gray-600 max-w-2xl font-light leading-relaxed mt-4 md:mt-6 text-center mx-auto px-4"
+              style={{ overflow: "hidden" }}
+              variants={{
+                visible: { opacity: 1, height: "auto", y: 0, marginTop: "1rem" },
+                hidden: { opacity: 0, height: 0, y: -20, marginTop: 0 },
+              }}
+              initial="visible"
+              animate={hasSearched ? "hidden" : "visible"}
+              transition={{ duration: 0.5, ease: "easeInOut" }}
+            >
+              Stop stalling. Find your next movie.
+            </motion.p>
           </motion.div>
 
           {/* Letterboxd Integration */}
