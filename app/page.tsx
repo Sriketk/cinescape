@@ -224,13 +224,9 @@ export default function MovieMoodApp() {
             transition={{ duration: 0.8, ease: "easeInOut" }}
           >
             <form onSubmit={handleSubmit} className="relative group w-full">
-              {/* Enhanced outer glow */}
-              <div className="absolute inset-0 bg-gradient-to-r from-amber-300/40 via-orange-300/40 to-yellow-300/40 rounded-3xl blur-2xl opacity-0 group-hover:opacity-100 transition-all duration-700 " />
-              <div className="absolute inset-0 bg-gradient-to-r from-amber-200/20 via-orange-200/20 to-yellow-200/20 rounded-3xl blur-xl opacity-30 group-focus-within:opacity-60 transition-opacity duration-500" />
-
               {/* Main container with PromptBox */}
               <motion.div
-                className="relative"
+                className="relative rounded-2xl md:rounded-[28px]"
                 layout
                 transition={{ duration: 0.8, ease: "easeInOut" }}
               >
@@ -258,7 +254,6 @@ export default function MovieMoodApp() {
                     duration={2}
                     colorFrom="#f59e0b"
                     colorTo="#f97316"
-                    className=" rounded-[28px] sm:rounded-[28px]"
                   />
                 )}
               </motion.div>
