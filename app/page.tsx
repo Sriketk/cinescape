@@ -19,6 +19,8 @@ export default function MovieMoodApp() {
   );
   const [isLoading, setIsLoading] = useState(false);
   const [hasSearched, setHasSearched] = useState(false);
+  const [isLetterboxdHovered, setIsLetterboxdHovered] = useState(false);
+  const [isLetterboxdExpanded, setIsLetterboxdExpanded] = useState(false);
   const [letterboxdUsername, setLetterboxdUsername] = useState("");
 
   const getRecommendations = async () => {
@@ -51,6 +53,8 @@ export default function MovieMoodApp() {
     if (letterboxdUsername.trim()) {
       // Here you can add logic to use the Letterboxd username
       console.log("Letterboxd username:", letterboxdUsername.trim());
+      setIsLetterboxdHovered(false);
+      setIsLetterboxdExpanded(false);
       setLetterboxdUsername("");
     }
   };
@@ -112,41 +116,93 @@ export default function MovieMoodApp() {
             layout
             transition={{ duration: 0.8, ease: "easeInOut" }}
           >
-            <div className="flex items-center gap-3 px-3 bg-white/50 hover:bg-white/70 backdrop-blur-sm rounded-full border border-gray-200/50 w-60">
-              <div className="w-7 h-7 flex items-center justify-center">
+            <motion.div
+              initial={{ width: 56, height: 56 }}
+              animate={{
+                width: isLetterboxdHovered || isLetterboxdExpanded ? 240 : 56,
+              }}
+              onHoverStart={() => setIsLetterboxdHovered(true)}
+              onHoverEnd={() => setIsLetterboxdHovered(false)}
+              transition={{ duration: 0.3 }}
+              className="flex items-center justify-center overflow-hidden relative cursor-pointer"
+              onClick={() => setIsLetterboxdExpanded(!isLetterboxdExpanded)}
+            >
+              {/* Letterboxd Logo - Always visible */}
+              <motion.div
+                className="absolute left-4"
+                animate={{
+                  opacity: isLetterboxdHovered || isLetterboxdExpanded ? 0 : 1,
+                  scale: isLetterboxdHovered || isLetterboxdExpanded ? 0.8 : 1,
+                }}
+                transition={{ duration: 0.2 }}
+              >
                 <Image
                   src="/letterboxd-mac-icon.png"
                   alt="Letterboxd"
-                  width={28}
-                  height={28}
-                  className="w-7 h-7 object-contain"
+                  width={40}
+                  height={40}
+                  className="w-10 h-10 object-contain"
                 />
-              </div>
-              <div className="flex-1">
-                <Input
-                  value={letterboxdUsername}
-                  onChange={(e) => setLetterboxdUsername(e.target.value)}
-                  placeholder="username"
-                  autoComplete="off"
-                  name="letterboxd-username"
-                  id="letterboxd-username"
-                  onKeyDown={(e) => {
-                    if (e.key === "Enter") {
-                      e.preventDefault();
-                      handleLetterboxdSubmit();
-                    }
-                  }}
-                  className="w-full h-8 bg-transparent border-none text-sm text-gray-800 placeholder:text-gray-500 focus-visible:ring-0 focus-visible:ring-offset-0 text-center"
-                />
-              </div>
-              <button
-                type="button"
-                onClick={() => setLetterboxdUsername("")}
-                className="w-5 h-5 flex items-center justify-center text-gray-400 hover:text-gray-600 rounded-full hover:bg-gray-100 transition-colors"
+              </motion.div>
+
+              {/* Username Input - Visible on hover/click */}
+              <motion.div
+                className="w-full flex items-center gap-3 px-3 bg-white/50 hover:bg-white/70 backdrop-blur-sm rounded-full border border-gray-200/50"
+                initial={{ opacity: 0 }}
+                animate={{
+                  opacity: isLetterboxdHovered || isLetterboxdExpanded ? 1 : 0,
+                }}
+                transition={{
+                  duration: 0.2,
+                  delay: isLetterboxdHovered || isLetterboxdExpanded ? 0.1 : 0,
+                }}
+                onClick={(e) => e.stopPropagation()} // Prevent closing when clicking inside
               >
-                <X className="w-3 h-3" />
-              </button>
-            </div>
+                <div className="w-7 h-7 flex items-center justify-center">
+                  <Image
+                    src="/letterboxd-mac-icon.png"
+                    alt="Letterboxd"
+                    width={28}
+                    height={28}
+                    className="w-7 h-7 object-contain"
+                  />
+                </div>
+                <div className="flex-1">
+                  <Input
+                    value={letterboxdUsername}
+                    onChange={(e) => setLetterboxdUsername(e.target.value)}
+                    placeholder="username"
+                    autoComplete="off"
+                    name="letterboxd-username"
+                    id="letterboxd-username"
+                    onKeyDown={(e) => {
+                      if (e.key === "Enter") {
+                        e.preventDefault();
+                        handleLetterboxdSubmit();
+                      }
+                      if (e.key === "Escape") {
+                        setIsLetterboxdHovered(false);
+                        setIsLetterboxdExpanded(false);
+                        setLetterboxdUsername("");
+                      }
+                    }}
+                    className="w-full h-8 bg-transparent border-none text-sm text-gray-800 placeholder:text-gray-500 focus-visible:ring-0 focus-visible:ring-offset-0 text-center"
+                  />
+                </div>
+                <button
+                  type="button"
+                  onClick={(e) => {
+                    e.stopPropagation(); // Prevent triggering the parent click
+                    setIsLetterboxdHovered(false);
+                    setIsLetterboxdExpanded(false);
+                    setLetterboxdUsername("");
+                  }}
+                  className="w-5 h-5 flex items-center justify-center text-gray-400 hover:text-gray-600 rounded-full hover:bg-gray-100 transition-colors"
+                >
+                  <X className="w-3 h-3" />
+                </button>
+              </motion.div>
+            </motion.div>
           </motion.div>
 
           {/* Input Section */}
