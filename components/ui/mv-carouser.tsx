@@ -37,15 +37,17 @@ const Slide = ({ slide, index, current, handleSlideClick }: SlideProps) => {
         transformOrigin: "center",
       }}
     >
-      <Image
-        alt={title}
-        src={src}
-        width={250}
-        height={250}
-        className="rounded-2xl object-cover"
-        priority={index === 0}
-        onLoad={imageLoaded}
-      />
+      <a href={slide.url} target="_blank" rel="noopener noreferrer">
+        <Image
+          alt={title}
+          src={src}
+          width={250}
+          height={250}
+          className="rounded-2xl object-cover"
+          priority={index === 0}
+          onLoad={imageLoaded}
+        />
+      </a>
     </li>
   );
 };
