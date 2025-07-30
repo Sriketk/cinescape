@@ -239,22 +239,7 @@ export default function MovieMoodApp() {
                 />
               </motion.div>
 
-              <AnimatePresence>
-                {isLoading && (
-                  <motion.div
-                    className="mt-4 flex items-center gap-2 text-gray-500 justify-center"
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: -10 }}
-                    transition={{ duration: 0.3 }}
-                  >
-                    <Sparkles className="w-4 h-4 animate-pulse" />
-                    <span className="text-sm font-light">
-                      Analyzing your mood...
-                    </span>
-                  </motion.div>
-                )}
-              </AnimatePresence>
+
             </form>
           </motion.div>
         </motion.div>
