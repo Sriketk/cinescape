@@ -68,15 +68,13 @@ export default function MovieMoodApp() {
       <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-gradient-to-r from-yellow-200/20 to-amber-200/20 rounded-full blur-3xl" />
 
       <motion.div
-        className="relative z-10"
+        className="relative z-10 flex min-h-screen flex-col"
         layout
         transition={{ duration: 0.8, ease: "easeInOut" }}
       >
         <motion.div
-          className={`p-4 md:p-8 ${
-            hasSearched
-              ? "flex flex-col items-center"
-              : "min-h-screen flex flex-col items-center justify-center"
+          className={`p-4 md:p-8 flex flex-col items-center ${
+            hasSearched ? "" : "flex-grow justify-center"
           }`}
           layout
           transition={{ duration: 0.8, ease: "easeInOut" }}
@@ -202,9 +200,7 @@ export default function MovieMoodApp() {
 
           {/* Input Section */}
           <motion.div
-            className={`w-full px-4 ${
-              hasSearched ? "max-w-4xl" : "max-w-2xl"
-            } ${
+            className={`w-full px-4 max-w-2xl ${
               hasSearched ? "mb-6 md:mb-8" : "mb-8 md:mb-12"
             } flex justify-center`}
             layout
