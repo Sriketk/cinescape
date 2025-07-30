@@ -107,7 +107,12 @@ export default function MovieMoodApp() {
               className="text-base md:text-lg lg:text-xl text-gray-600 max-w-2xl font-light leading-relaxed mt-4 md:mt-6 text-center mx-auto px-4"
               style={{ overflow: "hidden" }}
               variants={{
-                visible: { opacity: 1, height: "auto", y: 0, marginTop: "1rem" },
+                visible: {
+                  opacity: 1,
+                  height: "auto",
+                  y: 0,
+                  marginTop: "1rem",
+                },
                 hidden: { opacity: 0, height: 0, y: -20, marginTop: 0 },
               }}
               initial="visible"
@@ -258,7 +263,7 @@ export default function MovieMoodApp() {
                     duration={2}
                     colorFrom="#f59e0b"
                     colorTo="#f97316"
-                    className=" sm:rounded-[28px]"
+                    className=" rounded-[28px] sm:rounded-[28px]"
                   />
                 )}
               </motion.div>
@@ -276,9 +281,7 @@ export default function MovieMoodApp() {
               exit={{ opacity: 0, y: 50 }}
               transition={{ duration: 0.6, delay: 0.2 }}
             >
-              <Carousel
-                slides={slides}
-              />
+              <Carousel slides={slides} />
             </motion.div>
           )}
         </AnimatePresence>
