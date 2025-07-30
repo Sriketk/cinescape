@@ -2,7 +2,7 @@
 
 import type React from "react";
 
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Input } from "@/components/ui/input";
 import { Sparkles, ArrowRight, User, X } from "lucide-react";
@@ -22,6 +22,15 @@ export default function MovieMoodApp() {
   const [isLetterboxdHovered, setIsLetterboxdHovered] = useState(false);
   const [isLetterboxdExpanded, setIsLetterboxdExpanded] = useState(false);
   const [letterboxdUsername, setLetterboxdUsername] = useState("");
+
+  const slides = useMemo(() => {
+    return recommendations.map((movie) => ({
+      title: movie.title,
+      button: "View on Letterboxd",
+      src: movie.poster,
+      url: `https://letterboxd.com${movie.url}`,
+    }));
+  }, [recommendations]);
 
   const getRecommendations = async () => {
     if (!mood.trim()) return;
@@ -261,12 +270,7 @@ export default function MovieMoodApp() {
               transition={{ duration: 0.6, delay: 0.2 }}
             >
               <Carousel
-                slides={recommendations.map((movie) => ({
-                  title: movie.title,
-                  button: "View on Letterboxd",
-                  src: movie.poster,
-                  url: `https://letterboxd.com${movie.url}`,
-                }))}
+                slides={slides}
               />
             </motion.div>
           )}
