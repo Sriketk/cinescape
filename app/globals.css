@@ -116,6 +116,34 @@
     @apply border-border;
   }
   body {
-    @apply bg-background text-foreground font-sans;
+    @apply bg-background text-foreground;
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+  
+  /* Smooth transitions for theme changes - only apply to specific elements that need theme transitions */
+  .theme-transition,
+  .theme-transition * {
+    transition-property: background-color, border-color, color, fill, stroke, filter, backdrop-filter;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    transition-duration: 300ms;
+  }
+  
+  /* Prevent transition on initial load */
+  .no-transition * {
+    transition: none !important;
+  }
+  
+  /* Custom theme transition helpers */
+  .theme-transition {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  
+  /* Font family utilities that respect theme typography settings */
+  .font-theme-primary {
+    font-family: var(--font-primary, var(--font-libre-baskerville));
+  }
+  
+  .font-theme-secondary {
+    font-family: var(--font-secondary, var(--font-lora));
   }
 }

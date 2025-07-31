@@ -5,13 +5,15 @@ import type React from "react";
 import { useState, useMemo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Input } from "@/components/ui/input";
-import { Sparkles, ArrowRight, User, X } from "lucide-react";
+import { X } from "lucide-react";
 import { getMovieRecommendations } from "./actions";
 import type { MovieRecommendation } from "@/lib/types";
 import { Carousel } from "@/components/ui/mv-carouser";
 import Image from "next/image";
 import { PromptBox } from "@/components/ui/chat-prompt-input";
 import { BorderBeam } from "@/components/ui/border-beam";
+import { ThemeSelector } from "@/components/ui/theme-selector";
+import { useMovieTheme } from "@/components/movie-theme-provider";
 
 export default function MovieMoodApp() {
   const [mood, setMood] = useState("");
@@ -23,6 +25,8 @@ export default function MovieMoodApp() {
   const [isLetterboxdHovered, setIsLetterboxdHovered] = useState(false);
   const [isLetterboxdExpanded, setIsLetterboxdExpanded] = useState(false);
   const [letterboxdUsername, setLetterboxdUsername] = useState("");
+
+  const { currentTheme } = useMovieTheme();
 
   const slides = useMemo(() => {
     return recommendations.map((movie) => ({
@@ -70,7 +74,7 @@ export default function MovieMoodApp() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-amber-50 via-orange-50 to-yellow-50 relative overflow-hidden">
+    <div className={`min-h-screen relative overflow-hidden theme-transition ${currentTheme.backgroundGradient.cssClass}`}>
       {/* Subtle background elements */}
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(251,191,36,0.1),transparent_50%)]" />
       <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-gradient-to-r from-amber-200/20 to-orange-200/20 rounded-full blur-3xl" />
@@ -88,6 +92,16 @@ export default function MovieMoodApp() {
           layout
           transition={{ duration: 0.8, ease: "easeInOut" }}
         >
+          {/* Theme Selector */}
+          <motion.div
+            className="absolute top-4 right-4 z-20"
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.2 }}
+          >
+            <ThemeSelector />
+          </motion.div>
+
           {/* Header */}
           <motion.div
             className={`text-center ${
@@ -97,14 +111,14 @@ export default function MovieMoodApp() {
             transition={{ duration: 0.8, ease: "easeInOut" }}
           >
             <motion.h1
-              className="p-2 text-3xl md:text-5xl font-bold bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 bg-clip-text text-transparent"
+              className="p-2 text-3xl md:text-5xl font-bold text-foreground transition-colors duration-300"
               layout
               transition={{ duration: 0.8, ease: "easeInOut" }}
             >
               Cinescape
             </motion.h1>
             <motion.p
-              className="text-base md:text-lg lg:text-xl text-gray-600 max-w-2xl font-light leading-relaxed mt-4 md:mt-6 text-center mx-auto px-4"
+              className="text-base md:text-lg lg:text-xl text-muted-foreground max-w-2xl font-light leading-relaxed mt-4 md:mt-6 text-center mx-auto px-4 transition-colors duration-300"
               style={{ overflow: "hidden" }}
               variants={{
                 visible: {
@@ -235,13 +249,20 @@ export default function MovieMoodApp() {
                 layout
                 transition={{ duration: 0.8, ease: "easeInOut" }}
               >
+                {isLoading && (
+                  <BorderBeam
+                    duration={2}
+                    colorFrom="#f59e0b"
+                    colorTo="#f97316"
+                  />
+                )}
                 <PromptBox
                   value={mood}
                   onChange={(e) => setMood(e.target.value)}
                   placeholder="What do you feel like watching?"
                   disabled={isLoading}
                   loading={isLoading}
-                  className="bg-gradient-to-br from-white/90 via-amber-50/80 to-orange-50/70 backdrop-blur-xl shadow-lg md:shadow-2xl border-amber-200/30 hover:shadow-xl md:hover:shadow-3xl hover:border-amber-300/50 focus-within:border-orange-300/60 focus-within:bg-gradient-to-br focus-within:from-white/95 focus-within:via-amber-50/90 focus-within:to-orange-50/80 text-sm md:text-base [&_textarea]:text-sm [&_textarea]:md:text-base [&_textarea]:font-light [&_textarea]:text-center [&_textarea]:placeholder:text-center [&_textarea]:placeholder:font-normal [&_textarea]:text-gray-800 [&_textarea]:placeholder:text-gray-500/70 [&_textarea]:h-10 [&_textarea]:md:h-12 [&_textarea]:min-h-[2.5rem] [&_textarea]:md:min-h-[3rem]"
+                  className={`theme-transition ${currentTheme.chatInput.background} ${currentTheme.chatInput.backdropBlur ? 'backdrop-blur-xl' : ''} ${currentTheme.chatInput.shadow} ${currentTheme.chatInput.border} ${currentTheme.chatInput.focusBackground} ${currentTheme.chatInput.textColor} ${currentTheme.chatInput.placeholderColor} text-sm md:text-base [&_textarea]:text-sm [&_textarea]:md:text-base [&_textarea]:font-light [&_textarea]:text-center [&_textarea]:placeholder:text-center [&_textarea]:placeholder:font-normal [&_textarea]:h-10 [&_textarea]:md:h-12 [&_textarea]:min-h-[2.5rem] [&_textarea]:md:min-h-[3rem]`}
                   onKeyDown={(e) => {
                     if (
                       e.key === "Enter" &&
@@ -254,13 +275,6 @@ export default function MovieMoodApp() {
                     }
                   }}
                 />
-                {isLoading && (
-                  <BorderBeam
-                    duration={2}
-                    colorFrom="#f59e0b"
-                    colorTo="#f97316"
-                  />
-                )}
               </motion.div>
             </form>
           </motion.div>

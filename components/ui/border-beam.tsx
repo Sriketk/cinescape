@@ -17,7 +17,7 @@ export const BorderBeam = ({
 }: BorderBeamProps) => {
   return (
     <motion.div
-      className={`absolute inset-0 rounded-[inherit] ${className}`}
+      className={`absolute inset-0 rounded-[inherit] z-20 pointer-events-none ${className}`}
       animate={{
         boxShadow: [
           `0 0 0 0px ${colorFrom}40`,
@@ -26,7 +26,7 @@ export const BorderBeam = ({
         ],
       }}
       transition={{
-        duration,
+        duration: 2,
         repeat: Infinity,
         ease: "easeInOut",
       }}

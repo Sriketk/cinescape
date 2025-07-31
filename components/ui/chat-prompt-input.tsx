@@ -77,7 +77,7 @@ export const PromptBox = React.forwardRef<HTMLTextAreaElement, React.TextareaHTM
           value={value} 
           onChange={handleInputChange} 
           placeholder="Message..." 
-          className="w-full resize-none border-0 bg-transparent p-2 md:p-3 text-foreground dark:text-white placeholder:text-muted-foreground dark:placeholder:text-gray-300 focus:ring-0 focus-visible:outline-none min-h-12" 
+          className="w-full resize-none border-0 bg-transparent p-2 md:p-3 focus:ring-0 focus-visible:outline-none min-h-12" 
           {...props} 
         />
         

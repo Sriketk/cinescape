@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Libre_Baskerville, Lora, IBM_Plex_Mono } from "next/font/google";
 import "./globals.css";
+import { MovieThemeProvider } from "@/components/movie-theme-provider";
 
 const libreBaskerville = Libre_Baskerville({
   subsets: ["latin"],
@@ -40,7 +41,9 @@ export default function RootLayout({
         className={`${libreBaskerville.variable} ${lora.variable} ${ibmPlexMono.variable}`}
         suppressHydrationWarning={true}
       >
-        {children}
+        <MovieThemeProvider>
+          {children}
+        </MovieThemeProvider>
       </body>
     </html>
   );
