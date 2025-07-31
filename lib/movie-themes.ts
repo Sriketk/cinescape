@@ -22,8 +22,8 @@ export interface MovieTheme {
     ring: string;
   };
   typography: {
-    primary: "sans" | "serif" | "mono";
-    secondary?: "sans" | "serif" | "mono";
+    primary: "sans" | "serif" | "mono" | "figtree";
+    secondary?: "sans" | "serif" | "mono" | "figtree";
   };
   backgroundGradient: {
     from: string;
@@ -69,8 +69,8 @@ export interface MovieTheme {
 export const movieThemes: Record<string, MovieTheme> = {
   default: {
     id: "default",
-    name: "Cinescape Classic",
-    description: "The original warm, cinematic experience",
+    name: "Dune",
+    description: "Based on the desert",
     colors: {
       primary: "0 0% 9%",
       secondary: "0 0% 96.1%",
@@ -100,8 +100,7 @@ export const movieThemes: Record<string, MovieTheme> = {
       cssClass: "bg-gradient-to-br from-amber-50 via-orange-50 to-yellow-50",
     },
     chatInput: {
-      background:
-        "bg-gradient-to-br from-white/90 via-amber-50/80 to-orange-50/70",
+      background: "bg-white",
       backdropBlur: true,
       border:
         "border border-amber-200/30 hover:border-amber-300/50 focus-within:border-orange-300/60",
@@ -129,61 +128,66 @@ export const movieThemes: Record<string, MovieTheme> = {
   moonlight: {
     id: "moonlight",
     name: "Moonlight",
-    description: "Deep blues and teals inspired by Barry Jenkins' masterpiece",
+    description: "Barry Jenkins' masterpiece",
     colors: {
-      primary: "200 100% 40%",
-      secondary: "210 40% 15%",
-      accent: "180 100% 70%",
-      background: "220 27% 5%",
-      foreground: "180 100% 95%",
-      muted: "220 27% 12%",
-      mutedForeground: "180 50% 70%",
-      border: "220 27% 18%",
-      input: "220 27% 12%",
-      card: "220 27% 8%",
-      cardForeground: "180 100% 95%",
-      popover: "220 27% 8%",
-      popoverForeground: "180 100% 95%",
-      destructive: "0 84.2% 60.2%",
-      destructiveForeground: "0 0% 98%",
-      ring: "200 100% 40%",
+      // Tier 1: Primary Colors (Main brand colors)
+      primary: "183 87% 41%", // #0ebbc1 - Bright teal
+      secondary: "225 41% 23%", // #222e51 - Deep navy
+      accent: "308 58% 71%", // #e187d5 - Soft magenta
+      
+      // Tier 2: Background & Surface Colors
+      background: "225 41% 15%", // Darker navy background
+      foreground: "240 100% 100%", // #ffffff - White text
+      card: "225 41% 20%", // Slightly lighter navy surface
+      cardForeground: "240 100% 100%", // #ffffff - White text
+      popover: "225 41% 20%", // Navy popover
+      popoverForeground: "240 100% 100%", // #ffffff - White text
+      
+      // Tier 3: Supporting Colors
+      muted: "225 41% 25%", // Medium navy
+      mutedForeground: "240 100% 100%", // #ffffff - White text
+      border: "183 87% 41%", // Teal borders
+      input: "225 41% 20%", // Navy input
+      destructive: "0 84.2% 60.2%", // #ef4444 - Red for errors
+      destructiveForeground: "240 100% 100%", // #ffffff - White text
+      ring: "183 87% 41%", // Teal ring (matches primary)
     },
     typography: {
-      primary: "serif",
+      primary: "figtree",
     },
     backgroundGradient: {
-      from: "slate-900",
-      via: "blue-950",
-      to: "cyan-950",
+      from: "#222e51",
+      via: "#0ebbc1",
+      to: "#e187d5",
       direction: "to-br",
-      cssClass: "bg-gradient-to-br from-slate-900 via-blue-950 to-cyan-950",
+      cssClass: "bg-gradient-to-br from-[#222e51] from-0% via-[#222e51] via-20% via-[#0ebbc1] via-40% via-[#e187d5] via-70% to-[#e187d5] to-100%",
     },
     chatInput: {
       background:
-        "bg-gradient-to-br from-slate-800/90 via-blue-900/80 to-cyan-900/70",
+        "bg-gradient-to-br from-white/90 via-[#0ebbc1]/80 to-[#e187d5]/70",
       backdropBlur: true,
       border:
-        "border border-cyan-400/30 hover:border-cyan-300/50 focus-within:border-cyan-200/60",
+        "border border-[#0ebbc1]/40 hover:border-[#0ebbc1]/60 focus-within:border-[#e187d5]/70",
       shadow:
-        "shadow-lg shadow-cyan-500/20 md:shadow-2xl md:shadow-cyan-500/30",
-      hoverShadow: "hover:shadow-xl hover:shadow-cyan-500/40",
-      focusBorder: "focus-within:border-cyan-200/60",
+        "shadow-lg shadow-[#0ebbc1]/30 md:shadow-2xl md:shadow-[#0ebbc1]/40",
+      hoverShadow: "hover:shadow-xl hover:shadow-[#0ebbc1]/50",
+      focusBorder: "focus-within:border-[#e187d5]/70",
       focusBackground:
-        "focus-within:bg-gradient-to-br focus-within:from-slate-800/95 focus-within:via-blue-900/90 focus-within:to-cyan-900/80",
-      textColor: "[&_textarea]:text-cyan-100",
-      placeholderColor: "[&_textarea]:placeholder:text-cyan-300/70",
+        "focus-within:bg-gradient-to-br focus-within:from-white/95 focus-within:via-[#0ebbc1]/90 focus-within:to-[#e187d5]/80",
+      textColor: "[&_textarea]:text-black",
+      placeholderColor: "[&_textarea]:placeholder:text-black/60",
     },
     effects: {
       borderBeamColors: {
-        from: "#06b6d4",
-        to: "#0891b2",
+        from: "#0ebbc1",
+        to: "#e187d5",
       },
-      glowColor: "#06b6d4",
+      glowColor: "#0ebbc1",
       backgroundGlow: {
-        color: "rgba(6,182,212,0.1)",
-        from: "rgba(6,182,212,0.2)",
-        to: "rgba(8,145,178,0.2)",
-        secondary: "rgba(8,145,178,0.2)",
+        color: "rgba(14,187,193,0.15)",
+        from: "rgba(14,187,193,0.3)",
+        to: "rgba(225,135,213,0.25)",
+        secondary: "rgba(34,46,81,0.25)",
       },
     },
   },

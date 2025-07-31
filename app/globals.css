@@ -146,4 +146,8 @@
   .font-theme-secondary {
     font-family: var(--font-secondary, var(--font-lora));
   }
+  
+  .font-figtree {
+    font-family: var(--font-figtree);
+  }
 }

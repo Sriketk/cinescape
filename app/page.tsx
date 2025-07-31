@@ -76,9 +76,9 @@ export default function MovieMoodApp() {
   return (
     <div className={`min-h-screen relative overflow-hidden theme-transition ${currentTheme.backgroundGradient.cssClass}`}>
       {/* Subtle background elements */}
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(251,191,36,0.1),transparent_50%)]" />
-      <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-gradient-to-r from-amber-200/20 to-orange-200/20 rounded-full blur-3xl" />
-      <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-gradient-to-r from-yellow-200/20 to-amber-200/20 rounded-full blur-3xl" />
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,var(--theme-glow-color,rgba(251,191,36,0.1)),transparent_50%)]" />
+      <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-gradient-to-r from-[var(--theme-glow-from,rgba(251,191,36,0.2))] to-[var(--theme-glow-to,rgba(249,115,22,0.2))] rounded-full blur-3xl" />
+      <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-gradient-to-r from-[var(--theme-glow-secondary,rgba(253,224,71,0.2))] to-[var(--theme-glow-from,rgba(251,191,36,0.2))] rounded-full blur-3xl" />
 
       <motion.div
         className="relative z-10 flex min-h-screen flex-col"
@@ -252,8 +252,8 @@ export default function MovieMoodApp() {
                 {isLoading && (
                   <BorderBeam
                     duration={2}
-                    colorFrom="#f59e0b"
-                    colorTo="#f97316"
+                    colorFrom={currentTheme.effects?.borderBeamColors?.from || "#f59e0b"}
+                    colorTo={currentTheme.effects?.borderBeamColors?.to || "#f97316"}
                   />
                 )}
                 <PromptBox
@@ -262,7 +262,7 @@ export default function MovieMoodApp() {
                   placeholder="What do you feel like watching?"
                   disabled={isLoading}
                   loading={isLoading}
-                  className={`theme-transition ${currentTheme.chatInput.background} ${currentTheme.chatInput.backdropBlur ? 'backdrop-blur-xl' : ''} ${currentTheme.chatInput.shadow} ${currentTheme.chatInput.border} ${currentTheme.chatInput.focusBackground} ${currentTheme.chatInput.textColor} ${currentTheme.chatInput.placeholderColor} text-sm md:text-base [&_textarea]:text-sm [&_textarea]:md:text-base [&_textarea]:font-light [&_textarea]:text-center [&_textarea]:placeholder:text-center [&_textarea]:placeholder:font-normal [&_textarea]:h-10 [&_textarea]:md:h-12 [&_textarea]:min-h-[2.5rem] [&_textarea]:md:min-h-[3rem]`}
+                  className="bg-white border shadow-lg md:shadow-2xl transition-colors text-sm md:text-base [&_textarea]:text-sm [&_textarea]:md:text-base [&_textarea]:font-light [&_textarea]:text-center [&_textarea]:placeholder:text-center [&_textarea]:placeholder:font-normal [&_textarea]:h-10 [&_textarea]:md:h-12 [&_textarea]:min-h-[2.5rem] [&_textarea]:md:min-h-[3rem]"
                   onKeyDown={(e) => {
                     if (
                       e.key === "Enter" &&

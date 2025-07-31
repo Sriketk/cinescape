@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Libre_Baskerville, Lora, IBM_Plex_Mono } from "next/font/google";
+import { Libre_Baskerville, Lora, IBM_Plex_Mono, Figtree } from "next/font/google";
 import "./globals.css";
 import { MovieThemeProvider } from "@/components/movie-theme-provider";
 
@@ -24,6 +24,13 @@ const ibmPlexMono = IBM_Plex_Mono({
   display: "swap",
 });
 
+const figtree = Figtree({
+  subsets: ["latin"],
+  weight: ["300", "400", "500", "600", "700"],
+  variable: "--font-figtree",
+  display: "swap",
+});
+
 export const metadata: Metadata = {
   title: "Cinescape",
   description: "Discover your perfect film through the power of AI",
@@ -38,7 +45,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body 
-        className={`${libreBaskerville.variable} ${lora.variable} ${ibmPlexMono.variable}`}
+        className={`${libreBaskerville.variable} ${lora.variable} ${ibmPlexMono.variable} ${figtree.variable}`}
         suppressHydrationWarning={true}
       >
         <MovieThemeProvider>

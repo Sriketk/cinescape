@@ -70,14 +70,14 @@ export const PromptBox = React.forwardRef<HTMLTextAreaElement, React.TextareaHTM
     const hasValue = String(value || "").trim().length > 0;
 
     return (
-      <div className={cn("flex flex-col rounded-2xl md:rounded-[28px] p-1.5 md:p-2 shadow-sm transition-colors bg-white border dark:bg-[#303030] dark:border-transparent cursor-text", className)}>
+      <div className={cn("flex flex-col rounded-2xl md:rounded-[28px] p-1.5 md:p-2 shadow-sm transition-colors cursor-text", className)}>
         <textarea 
           ref={internalTextareaRef} 
           rows={1} 
           value={value} 
           onChange={handleInputChange} 
           placeholder="Message..." 
-          className="w-full resize-none border-0 bg-transparent p-2 md:p-3 focus:ring-0 focus-visible:outline-none min-h-12" 
+          className="w-full resize-none border-0 bg-transparent p-2 md:p-3 focus:ring-0 focus-visible:outline-none min-h-12 text-black placeholder:text-black/60" 
           {...props} 
         />
         

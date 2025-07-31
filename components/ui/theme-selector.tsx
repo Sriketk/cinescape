@@ -83,7 +83,12 @@ export function ThemeSelector({ className }: ThemeSelectorProps) {
           }}
         >
           <Palette className="w-4 h-4 mr-2" />
-          <span className="font-medium text-xs md:text-sm">
+          <span 
+            className="font-medium text-xs md:text-sm"
+            style={{ 
+              color: currentTheme.colors.foreground === "0 0% 3.9%" ? "#000000" : "#ffffff" 
+            }}
+          >
             {currentTheme.name}
           </span>
         </Button>
@@ -94,7 +99,7 @@ export function ThemeSelector({ className }: ThemeSelectorProps) {
         side="bottom"
         sideOffset={8}
       >
-        <DropdownMenuLabel className="text-sm font-semibold mb-2">
+        <DropdownMenuLabel className="text-sm font-semibold mb-2 text-gray-900">
           Choose Movie Theme
         </DropdownMenuLabel>
         <DropdownMenuSeparator />
@@ -121,10 +126,20 @@ export function ThemeSelector({ className }: ThemeSelectorProps) {
                 >
                   <div className="flex items-center justify-between">
                     <div className="flex-1">
-                      <h4 className="font-semibold text-sm mb-1 text-gray-900">
+                      <h4 
+                        className="font-semibold text-sm mb-1"
+                        style={{ 
+                          color: theme.colors.foreground === "0 0% 3.9%" ? "#000000" : "#ffffff" 
+                        }}
+                      >
                         {theme.name}
                       </h4>
-                      <p className="text-xs text-gray-700 line-clamp-2">
+                      <p 
+                        className="text-xs line-clamp-2"
+                        style={{ 
+                          color: theme.colors.foreground === "0 0% 3.9%" ? "rgba(0,0,0,0.7)" : "rgba(255,255,255,0.8)" 
+                        }}
+                      >
                         {theme.description}
                       </p>
                     </div>

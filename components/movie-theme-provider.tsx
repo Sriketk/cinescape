@@ -64,10 +64,11 @@ export function MovieThemeProvider({ children, defaultTheme = 'default' }: Movie
 
     // Apply font family based on typography settings  
     const fontClass = theme.typography.primary === 'serif' ? 'font-serif' : 
-                      theme.typography.primary === 'mono' ? 'font-mono' : 'font-sans'
+                      theme.typography.primary === 'mono' ? 'font-mono' : 
+                      theme.typography.primary === 'figtree' ? 'font-figtree' : 'font-sans'
     
     // Remove existing font classes and add new one [[memory:4428205]]
-    document.body.classList.remove('font-sans', 'font-serif', 'font-mono')
+    document.body.classList.remove('font-sans', 'font-serif', 'font-mono', 'font-figtree')
     document.body.classList.add(fontClass)
 
     // Store theme in localStorage
