@@ -149,7 +149,7 @@ export async function getMovieRecommendations(
               })
             );
             const response = await fetch(
-              "http://localhost:4000/api/get-recommendations",
+              "https://letterboxd-movie-recommendations-l19a.onrender.com/api/get-recommendations",
               {
                 method: "POST",
                 headers: {
