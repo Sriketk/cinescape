@@ -14,6 +14,7 @@ import { PromptBox } from "@/components/ui/chat-prompt-input";
 import { BorderBeam } from "@/components/ui/border-beam";
 import { ThemeSelector } from "@/components/ui/theme-selector";
 import { useMovieTheme } from "@/components/movie-theme-provider";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 export default function MovieMoodApp() {
   const [mood, setMood] = useState("");
@@ -27,6 +28,7 @@ export default function MovieMoodApp() {
   const [letterboxdUsername, setLetterboxdUsername] = useState("");
 
   const { currentTheme } = useMovieTheme();
+  const isMobile = useIsMobile();
 
   const slides = useMemo(() => {
     return recommendations.map((movie) => ({
@@ -148,20 +150,20 @@ export default function MovieMoodApp() {
             <motion.div
               initial={{ width: 56, height: 56 }}
               animate={{
-                width: isLetterboxdHovered || isLetterboxdExpanded ? 240 : 56,
+                width: isLetterboxdHovered || isLetterboxdExpanded || isMobile ? 240 : 56,
               }}
-              onHoverStart={() => setIsLetterboxdHovered(true)}
-              onHoverEnd={() => setIsLetterboxdHovered(false)}
+              onHoverStart={() => !isMobile && setIsLetterboxdHovered(true)}
+              onHoverEnd={() => !isMobile && setIsLetterboxdHovered(false)}
               transition={{ duration: 0.3 }}
               className="flex items-center justify-center overflow-hidden relative cursor-pointer"
-              onClick={() => setIsLetterboxdExpanded(!isLetterboxdExpanded)}
+              onClick={() => !isMobile && setIsLetterboxdExpanded(!isLetterboxdExpanded)}
             >
               {/* Letterboxd Logo - Always visible */}
               <motion.div
                 className="absolute left-4"
                 animate={{
-                  opacity: isLetterboxdHovered || isLetterboxdExpanded ? 0 : 1,
-                  scale: isLetterboxdHovered || isLetterboxdExpanded ? 0.8 : 1,
+                  opacity: isLetterboxdHovered || isLetterboxdExpanded || isMobile ? 0 : 1,
+                  scale: isLetterboxdHovered || isLetterboxdExpanded || isMobile ? 0.8 : 1,
                 }}
                 transition={{ duration: 0.2 }}
               >
@@ -179,11 +181,11 @@ export default function MovieMoodApp() {
                 className="w-full flex items-center gap-3 px-3 bg-white/50 hover:bg-white/70 backdrop-blur-sm rounded-full border border-gray-200/50"
                 initial={{ opacity: 0 }}
                 animate={{
-                  opacity: isLetterboxdHovered || isLetterboxdExpanded ? 1 : 0,
+                  opacity: isLetterboxdHovered || isLetterboxdExpanded || isMobile ? 1 : 0,
                 }}
                 transition={{
                   duration: 0.2,
-                  delay: isLetterboxdHovered || isLetterboxdExpanded ? 0.1 : 0,
+                  delay: isLetterboxdHovered || isLetterboxdExpanded || isMobile ? 0.1 : 0,
                 }}
                 onClick={(e) => e.stopPropagation()} // Prevent closing when clicking inside
               >
@@ -218,18 +220,20 @@ export default function MovieMoodApp() {
                     className="w-full h-8 bg-transparent border-none text-sm text-gray-800 placeholder:text-gray-500 focus-visible:ring-0 focus-visible:ring-offset-0 text-center"
                   />
                 </div>
-                <button
-                  type="button"
-                  onClick={(e) => {
-                    e.stopPropagation(); // Prevent triggering the parent click
-                    setIsLetterboxdHovered(false);
-                    setIsLetterboxdExpanded(false);
-                    setLetterboxdUsername("");
-                  }}
-                  className="w-5 h-5 flex items-center justify-center text-gray-400 hover:text-gray-600 rounded-full hover:bg-gray-100 transition-colors"
-                >
-                  <X className="w-3 h-3" />
-                </button>
+                {!isMobile && (
+                  <button
+                    type="button"
+                    onClick={(e) => {
+                      e.stopPropagation(); // Prevent triggering the parent click
+                      setIsLetterboxdHovered(false);
+                      setIsLetterboxdExpanded(false);
+                      setLetterboxdUsername("");
+                    }}
+                    className="w-5 h-5 flex items-center justify-center text-gray-400 hover:text-gray-600 rounded-full hover:bg-gray-100 transition-colors"
+                  >
+                    <X className="w-3 h-3" />
+                  </button>
+                )}
               </motion.div>
             </motion.div>
           </motion.div>
