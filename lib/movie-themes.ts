@@ -75,7 +75,7 @@ export const movieThemes: Record<string, MovieTheme> = {
       primary: "0 0% 9%",
       secondary: "0 0% 96.1%",
       accent: "0 0% 96.1%",
-      background: "0 0% 100%",
+      background: "40 50% 96%",
       foreground: "0 0% 3.9%",
       muted: "0 0% 96.1%",
       mutedForeground: "0 0% 45.1%",
