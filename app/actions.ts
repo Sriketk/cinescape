@@ -119,35 +119,6 @@ export async function getMovieRecommendations(
             max_runtime,
             popularity,
           }) => {
-            // Your actual recommendation logic here
-            // This is a placeholder - replace with your real API call
-            console.log("Getting recommendations for:", {
-              genres,
-              content_types,
-              min_release_year,
-              max_release_year,
-              min_runtime,
-              max_runtime,
-              popularity,
-            });
-            console.log("Letterboxd username:", letterboxd_username);
-            console.log(
-              JSON.stringify({
-                currentQuery: {
-                  username: letterboxd_username
-                    ? [letterboxd_username]
-                    : ["sriketk"],
-                  model_type: "personalized",
-                  genres,
-                  content_types,
-                  min_release_year,
-                  max_release_year,
-                  min_runtime,
-                  max_runtime,
-                  popularity,
-                },
-              })
-            );
             const response = await fetch(
               "https://letterboxd-movie-recommendations-l19a.onrender.com/api/get-recommendations",
               {
