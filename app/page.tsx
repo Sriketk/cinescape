@@ -5,7 +5,7 @@ import type React from "react";
 import { useState, useMemo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Input } from "@/components/ui/input";
-import { X } from "lucide-react";
+import { X, ChevronLeft, ChevronRight } from "lucide-react";
 import { getMovieRecommendations } from "./actions";
 import type { MovieRecommendation } from "@/lib/types";
 import { Carousel } from "@/components/ui/mv-carouser";
@@ -26,6 +26,7 @@ export default function MovieMoodApp() {
   const [isLetterboxdHovered, setIsLetterboxdHovered] = useState(false);
   const [isLetterboxdExpanded, setIsLetterboxdExpanded] = useState(false);
   const [letterboxdUsername, setLetterboxdUsername] = useState("");
+  const [currentMobileMovie, setCurrentMobileMovie] = useState(0);
 
   const { currentTheme } = useMovieTheme();
   const isMobile = useIsMobile();
@@ -53,6 +54,7 @@ export default function MovieMoodApp() {
         letterboxdUsername
       );
       setRecommendations(data.recommendations);
+      setCurrentMobileMovie(0); // Reset to first movie
     } catch (error) {
       console.error("Error getting recommendations:", error);
     } finally {
@@ -75,9 +77,21 @@ export default function MovieMoodApp() {
     }
   };
 
+  const nextMobileMovie = () => {
+    setCurrentMobileMovie((prev) => 
+      prev === recommendations.length - 1 ? 0 : prev + 1
+    );
+  };
+
+  const prevMobileMovie = () => {
+    setCurrentMobileMovie((prev) => 
+      prev === 0 ? recommendations.length - 1 : prev - 1
+    );
+  };
+
   return (
     <div
-      className={`min-h-screen relative overflow-hidden theme-transition ${currentTheme.backgroundGradient.cssClass}`}
+      className={`${isMobile ? 'h-screen overflow-hidden' : 'min-h-screen'} relative overflow-hidden theme-transition ${currentTheme.backgroundGradient.cssClass}`}
     >
       {/* Subtle background elements */}
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,var(--theme-glow-color,rgba(251,191,36,0.1)),transparent_50%)]" />
@@ -85,20 +99,20 @@ export default function MovieMoodApp() {
       <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-gradient-to-r from-[var(--theme-glow-secondary,rgba(253,224,71,0.2))] to-[var(--theme-glow-from,rgba(251,191,36,0.2))] rounded-full blur-3xl" />
 
       <motion.div
-        className="relative z-10 flex min-h-screen flex-col"
+        className={`relative z-10 flex ${isMobile ? 'h-full' : 'min-h-screen'} flex-col`}
         layout
         transition={{ duration: 0.8, ease: "easeInOut" }}
       >
         <motion.div
-          className={`p-4 md:p-8 flex flex-col items-center ${
-            hasSearched ? "" : "flex-grow justify-center"
+          className={`${isMobile ? 'pt-8 pb-0 px-2 flex-shrink-0' : 'p-2 md:p-8'} flex flex-col items-center ${
+            hasSearched && !isMobile ? "" : isMobile ? "" : "flex-grow justify-center"
           }`}
-          layout
-          transition={{ duration: 0.8, ease: "easeInOut" }}
+          layout={!isMobile}
+          transition={isMobile ? { duration: 0 } : { duration: 0.8, ease: "easeInOut" }}
         >
           {/* Theme Selector */}
           <motion.div
-            className="absolute top-4 right-4 z-20"
+            className="absolute top-2 right-2 md:top-4 md:right-4 z-20"
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.2 }}
@@ -109,33 +123,33 @@ export default function MovieMoodApp() {
           {/* Header */}
           <motion.div
             className={`text-center ${
-              hasSearched ? "mb-6 md:mb-8" : "mb-8 md:mb-12"
-            } w-full flex flex-col items-center px-4`}
-            layout
-            transition={{ duration: 0.8, ease: "easeInOut" }}
+              hasSearched && !isMobile ? "mb-6 md:mb-8" : "mb-4 md:mb-12"
+            } w-full flex flex-col items-center px-2 md:px-4`}
+            layout={!isMobile}
+            transition={isMobile ? { duration: 0 } : { duration: 0.8, ease: "easeInOut" }}
           >
             <motion.h1
-              className="p-2 text-3xl md:text-5xl font-bold text-foreground transition-colors duration-300"
-              layout
-              transition={{ duration: 0.8, ease: "easeInOut" }}
+              className="p-1 md:p-2 text-3xl md:text-5xl font-bold text-foreground transition-colors duration-300"
+              layout={!isMobile}
+              transition={isMobile ? { duration: 0 } : { duration: 0.8, ease: "easeInOut" }}
             >
               Cinescape
             </motion.h1>
             <motion.p
-              className="text-base md:text-lg lg:text-xl text-muted-foreground max-w-2xl font-light leading-relaxed mt-4 md:mt-6 text-center mx-auto px-4 transition-colors duration-300"
+              className="text-base md:text-lg lg:text-xl text-muted-foreground max-w-2xl font-light leading-relaxed mt-2 md:mt-6 text-center mx-auto px-2 md:px-4 transition-colors duration-300"
               style={{ overflow: "hidden" }}
               variants={{
                 visible: {
                   opacity: 1,
                   height: "auto",
                   y: 0,
-                  marginTop: "1rem",
+                  marginTop: "0.5rem",
                 },
                 hidden: { opacity: 0, height: 0, y: -20, marginTop: 0 },
               }}
               initial="visible"
-              animate={hasSearched ? "hidden" : "visible"}
-              transition={{ duration: 0.5, ease: "easeInOut" }}
+              animate={hasSearched && !isMobile ? "hidden" : "visible"}
+              transition={isMobile ? { duration: 0 } : { duration: 0.5, ease: "easeInOut" }}
             >
               Stop stalling. Find your next movie.
             </motion.p>
@@ -143,11 +157,11 @@ export default function MovieMoodApp() {
 
           {/* Letterboxd Integration */}
           <motion.div
-            className={`w-full flex justify-center px-4 ${
-              hasSearched ? "mb-4 md:mb-6" : "mb-6 md:mb-8"
+            className={`w-full flex justify-center px-2 md:px-4 ${
+              hasSearched && !isMobile ? "mb-4 md:mb-6" : isMobile ? "mb-2" : "mb-4 md:mb-8"
             }`}
-            layout
-            transition={{ duration: 0.8, ease: "easeInOut" }}
+            layout={!isMobile}
+            transition={isMobile ? { duration: 0 } : { duration: 0.8, ease: "easeInOut" }}
           >
             <motion.div
               initial={{ width: 56, height: 56 }}
@@ -259,18 +273,18 @@ export default function MovieMoodApp() {
 
           {/* Input Section */}
           <motion.div
-            className={`w-full px-4 max-w-2xl ${
-              hasSearched ? "mb-6 md:mb-8" : "mb-8 md:mb-12"
+            className={`w-full px-2 md:px-4 max-w-2xl ${
+              hasSearched && !isMobile ? "mb-6 md:mb-8" : isMobile ? "mb-2" : "mb-4 md:mb-12"
             } flex justify-center`}
-            layout
-            transition={{ duration: 0.8, ease: "easeInOut" }}
+            layout={!isMobile}
+            transition={isMobile ? { duration: 0 } : { duration: 0.8, ease: "easeInOut" }}
           >
             <form onSubmit={handleSubmit} className="relative group w-full">
               {/* Main container with PromptBox */}
               <motion.div
                 className="relative rounded-2xl md:rounded-[28px]"
-                layout
-                transition={{ duration: 0.8, ease: "easeInOut" }}
+                layout={!isMobile}
+                transition={isMobile ? { duration: 0 } : { duration: 0.8, ease: "easeInOut" }}
               >
                 {isLoading && (
                   <BorderBeam
@@ -311,13 +325,67 @@ export default function MovieMoodApp() {
         <AnimatePresence>
           {recommendations.length > 0 && (
             <motion.div
-              className="w-full"
-              initial={{ opacity: 0, y: 50 }}
+              className={`w-full ${isMobile ? 'flex-1 min-h-0' : ''}`}
+              initial={isMobile ? { opacity: 1 } : { opacity: 0, y: 50 }}
               animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: 50 }}
-              transition={{ duration: 0.6, delay: 0.2 }}
+              exit={isMobile ? { opacity: 0 } : { opacity: 0, y: 50 }}
+              transition={isMobile ? { duration: 0 } : { duration: 0.6, delay: 0.2 }}
             >
-              <Carousel slides={slides} />
+              {isMobile ? (
+                // Mobile: Custom simplified carousel without extra spacing
+                <div className="h-full flex items-center justify-center overflow-hidden relative">
+                  {/* Previous button */}
+                  <button
+                    onClick={prevMobileMovie}
+                    className="absolute left-4 z-10 w-10 h-10 rounded-full bg-black/20 backdrop-blur-sm flex items-center justify-center text-white hover:bg-black/40 transition-colors"
+                  >
+                    <ChevronLeft className="w-5 h-5" />
+                  </button>
+
+                  {/* Movie display */}
+                  <div className="w-full max-w-xs">
+                    <div className="aspect-[2/3] relative rounded-2xl overflow-hidden bg-gray-100 mx-auto">
+                      {recommendations[currentMobileMovie] && (
+                        <a 
+                          href={`https://letterboxd.com${recommendations[currentMobileMovie].url}`}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
+                          <Image
+                            src={recommendations[currentMobileMovie].poster}
+                            alt={recommendations[currentMobileMovie].title}
+                            fill
+                            className="object-cover"
+                          />
+                        </a>
+                      )}
+                    </div>
+                    {/* Dots indicator */}
+                    <div className="flex justify-center mt-3 space-x-2">
+                      {recommendations.map((_, index) => (
+                        <button
+                          key={index}
+                          onClick={() => setCurrentMobileMovie(index)}
+                          className={`w-2 h-2 rounded-full transition-colors ${
+                            index === currentMobileMovie ? 'bg-foreground' : 'bg-foreground/30'
+                          }`}
+                        />
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* Next button */}
+                  <button
+                    onClick={nextMobileMovie}
+                    className="absolute right-4 z-10 w-10 h-10 rounded-full bg-black/20 backdrop-blur-sm flex items-center justify-center text-white hover:bg-black/40 transition-colors"
+                  >
+                    <ChevronRight className="w-5 h-5" />
+                  </button>
+                </div>
+              ) : (
+                // Desktop: Original carousel
+                <Carousel slides={slides} />
+              )}
             </motion.div>
           )}
         </AnimatePresence>
