@@ -76,7 +76,9 @@ export default function MovieMoodApp() {
   };
 
   return (
-    <div className={`min-h-screen relative overflow-hidden theme-transition ${currentTheme.backgroundGradient.cssClass}`}>
+    <div
+      className={`min-h-screen relative overflow-hidden theme-transition ${currentTheme.backgroundGradient.cssClass}`}
+    >
       {/* Subtle background elements */}
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,var(--theme-glow-color,rgba(251,191,36,0.1)),transparent_50%)]" />
       <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-gradient-to-r from-[var(--theme-glow-from,rgba(251,191,36,0.2))] to-[var(--theme-glow-to,rgba(249,115,22,0.2))] rounded-full blur-3xl" />
@@ -150,20 +152,31 @@ export default function MovieMoodApp() {
             <motion.div
               initial={{ width: 56, height: 56 }}
               animate={{
-                width: isLetterboxdHovered || isLetterboxdExpanded || isMobile ? 240 : 56,
+                width:
+                  isLetterboxdHovered || isLetterboxdExpanded || isMobile
+                    ? 240
+                    : 56,
               }}
               onHoverStart={() => !isMobile && setIsLetterboxdHovered(true)}
               onHoverEnd={() => !isMobile && setIsLetterboxdHovered(false)}
               transition={{ duration: 0.3 }}
               className="flex items-center justify-center overflow-hidden relative cursor-pointer"
-              onClick={() => !isMobile && setIsLetterboxdExpanded(!isLetterboxdExpanded)}
+              onClick={() =>
+                !isMobile && setIsLetterboxdExpanded(!isLetterboxdExpanded)
+              }
             >
               {/* Letterboxd Logo - Always visible */}
               <motion.div
                 className="absolute left-4"
                 animate={{
-                  opacity: isLetterboxdHovered || isLetterboxdExpanded || isMobile ? 0 : 1,
-                  scale: isLetterboxdHovered || isLetterboxdExpanded || isMobile ? 0.8 : 1,
+                  opacity:
+                    isLetterboxdHovered || isLetterboxdExpanded || isMobile
+                      ? 0
+                      : 1,
+                  scale:
+                    isLetterboxdHovered || isLetterboxdExpanded || isMobile
+                      ? 0.8
+                      : 1,
                 }}
                 transition={{ duration: 0.2 }}
               >
@@ -181,11 +194,17 @@ export default function MovieMoodApp() {
                 className="w-full flex items-center gap-3 px-3 bg-white/50 hover:bg-white/70 backdrop-blur-sm rounded-full border border-gray-200/50"
                 initial={{ opacity: 0 }}
                 animate={{
-                  opacity: isLetterboxdHovered || isLetterboxdExpanded || isMobile ? 1 : 0,
+                  opacity:
+                    isLetterboxdHovered || isLetterboxdExpanded || isMobile
+                      ? 1
+                      : 0,
                 }}
                 transition={{
                   duration: 0.2,
-                  delay: isLetterboxdHovered || isLetterboxdExpanded || isMobile ? 0.1 : 0,
+                  delay:
+                    isLetterboxdHovered || isLetterboxdExpanded || isMobile
+                      ? 0.1
+                      : 0,
                 }}
                 onClick={(e) => e.stopPropagation()} // Prevent closing when clicking inside
               >
@@ -256,8 +275,12 @@ export default function MovieMoodApp() {
                 {isLoading && (
                   <BorderBeam
                     duration={2}
-                    colorFrom={currentTheme.effects?.borderBeamColors?.from || "#f59e0b"}
-                    colorTo={currentTheme.effects?.borderBeamColors?.to || "#f97316"}
+                    colorFrom={
+                      currentTheme.effects?.borderBeamColors?.from || "#f59e0b"
+                    }
+                    colorTo={
+                      currentTheme.effects?.borderBeamColors?.to || "#f97316"
+                    }
                   />
                 )}
                 <PromptBox

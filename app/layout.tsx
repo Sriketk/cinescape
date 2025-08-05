@@ -1,5 +1,10 @@
 import type { Metadata } from "next";
-import { Libre_Baskerville, Lora, IBM_Plex_Mono, Figtree } from "next/font/google";
+import {
+  Libre_Baskerville,
+  Lora,
+  IBM_Plex_Mono,
+  Figtree,
+} from "next/font/google";
 import "./globals.css";
 import { MovieThemeProvider } from "@/components/movie-theme-provider";
 
@@ -44,13 +49,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body 
+      <body
         className={`${libreBaskerville.variable} ${lora.variable} ${ibmPlexMono.variable} ${figtree.variable}`}
         suppressHydrationWarning={true}
       >
-        <MovieThemeProvider>
-          {children}
-        </MovieThemeProvider>
+        <MovieThemeProvider>{children}</MovieThemeProvider>
       </body>
     </html>
   );

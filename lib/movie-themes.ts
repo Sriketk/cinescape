@@ -134,7 +134,7 @@ export const movieThemes: Record<string, MovieTheme> = {
       primary: "183 87% 41%", // #0ebbc1 - Bright teal
       secondary: "225 41% 23%", // #222e51 - Deep navy
       accent: "308 58% 71%", // #e187d5 - Soft magenta
-      
+
       // Tier 2: Background & Surface Colors
       background: "225 41% 15%", // Darker navy background
       foreground: "240 100% 100%", // #ffffff - White text
@@ -142,7 +142,7 @@ export const movieThemes: Record<string, MovieTheme> = {
       cardForeground: "240 100% 100%", // #ffffff - White text
       popover: "225 41% 20%", // Navy popover
       popoverForeground: "240 100% 100%", // #ffffff - White text
-      
+
       // Tier 3: Supporting Colors
       muted: "225 41% 25%", // Medium navy
       mutedForeground: "240 100% 100%", // #ffffff - White text
@@ -160,7 +160,8 @@ export const movieThemes: Record<string, MovieTheme> = {
       via: "#0ebbc1",
       to: "#e187d5",
       direction: "to-br",
-      cssClass: "bg-gradient-to-br from-[#222e51] from-0% via-[#222e51] via-20% via-[#0ebbc1] via-40% via-[#e187d5] via-70% to-[#e187d5] to-100%",
+      cssClass:
+        "bg-gradient-to-br from-[#222e51] from-0% via-[#222e51] via-20% via-[#0ebbc1] via-40% via-[#e187d5] via-70% to-[#e187d5] to-100%",
     },
     chatInput: {
       background:
