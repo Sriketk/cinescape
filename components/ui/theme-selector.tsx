@@ -94,12 +94,12 @@ export function ThemeSelector({ className }: ThemeSelectorProps) {
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent 
-        className="w-80 p-2" 
-        align="end"
+        className="w-64 md:w-80 p-2" 
+        align="center"
         side="bottom"
         sideOffset={8}
       >
-        <DropdownMenuLabel className="text-sm font-semibold mb-2 text-gray-900">
+        <DropdownMenuLabel className="text-xs md:text-sm font-semibold mb-2 text-gray-900">
           Choose Movie Theme
         </DropdownMenuLabel>
         <DropdownMenuSeparator />
@@ -116,7 +116,7 @@ export function ThemeSelector({ className }: ThemeSelectorProps) {
                 onSelect={() => setTheme(theme.id)}
               >
                 <motion.div
-                  className="w-full p-3 rounded-lg border-2 transition-all relative overflow-hidden"
+                  className="w-full p-2 md:p-3 rounded-lg border-2 transition-all relative overflow-hidden"
                   style={{
                     background: `linear-gradient(135deg, ${preview?.gradientFrom || '#fef3c7'}, ${preview?.gradientTo || '#fed7aa'})`,
                     borderColor: isSelected ? (preview?.accent || '#f59e0b') : 'transparent',
@@ -127,7 +127,7 @@ export function ThemeSelector({ className }: ThemeSelectorProps) {
                   <div className="flex items-center justify-between">
                     <div className="flex-1">
                       <h4 
-                        className="font-semibold text-sm mb-1"
+                        className="font-semibold text-xs md:text-sm mb-1"
                         style={{ 
                           color: theme.colors.foreground === "0 0% 3.9%" ? "#000000" : "#ffffff" 
                         }}
@@ -135,7 +135,7 @@ export function ThemeSelector({ className }: ThemeSelectorProps) {
                         {theme.name}
                       </h4>
                       <p 
-                        className="text-xs line-clamp-2"
+                        className="text-xs line-clamp-1 md:line-clamp-2"
                         style={{ 
                           color: theme.colors.foreground === "0 0% 3.9%" ? "rgba(0,0,0,0.7)" : "rgba(255,255,255,0.8)" 
                         }}
@@ -161,17 +161,17 @@ export function ThemeSelector({ className }: ThemeSelectorProps) {
                   </div>
                   
                   {/* Color palette preview */}
-                  <div className="flex gap-1 mt-2">
+                  <div className="flex gap-1 mt-1 md:mt-2">
                     <div
-                      className="w-3 h-3 rounded-full border border-white/20"
+                      className="w-2 h-2 md:w-3 md:h-3 rounded-full border border-white/20"
                       style={{ backgroundColor: preview?.gradientFrom }}
                     />
                     <div
-                      className="w-3 h-3 rounded-full border border-white/20"
+                      className="w-2 h-2 md:w-3 md:h-3 rounded-full border border-white/20"
                       style={{ backgroundColor: preview?.gradientTo }}
                     />
                     <div
-                      className="w-3 h-3 rounded-full border border-white/20"
+                      className="w-2 h-2 md:w-3 md:h-3 rounded-full border border-white/20"
                       style={{ backgroundColor: preview?.accent }}
                     />
                   </div>
