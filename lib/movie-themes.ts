@@ -70,7 +70,7 @@ export const movieThemes: Record<string, MovieTheme> = {
   default: {
     id: "default",
     name: "Dune",
-    description: "Based on the desert",
+    description: "fear is the mind killer ",
     colors: {
       primary: "0 0% 9%",
       secondary: "0 0% 96.1%",
@@ -128,7 +128,7 @@ export const movieThemes: Record<string, MovieTheme> = {
   moonlight: {
     id: "moonlight",
     name: "Moonlight",
-    description: "Barry Jenkins' masterpiece",
+    description: "so yo name blue?",
     colors: {
       // Tier 1: Primary Colors (Main brand colors)
       primary: "183 87% 41%", // #0ebbc1 - Bright teal
