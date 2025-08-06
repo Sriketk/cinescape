@@ -78,20 +78,24 @@ export default function MovieMoodApp() {
   };
 
   const nextMobileMovie = () => {
-    setCurrentMobileMovie((prev) => 
+    setCurrentMobileMovie((prev) =>
       prev === recommendations.length - 1 ? 0 : prev + 1
     );
   };
 
   const prevMobileMovie = () => {
-    setCurrentMobileMovie((prev) => 
+    setCurrentMobileMovie((prev) =>
       prev === 0 ? recommendations.length - 1 : prev - 1
     );
   };
 
   return (
     <div
-      className={`${isMobile ? 'h-screen overflow-hidden' : 'min-h-screen'} relative overflow-hidden theme-transition ${currentTheme.backgroundGradient.cssClass}`}
+      className={`${
+        isMobile ? "h-screen overflow-hidden" : "min-h-screen"
+      } relative overflow-hidden theme-transition ${
+        currentTheme.backgroundGradient.cssClass
+      }`}
     >
       {/* Subtle background elements */}
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,var(--theme-glow-color,rgba(251,191,36,0.1)),transparent_50%)]" />
@@ -99,16 +103,26 @@ export default function MovieMoodApp() {
       <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-gradient-to-r from-[var(--theme-glow-secondary,rgba(253,224,71,0.2))] to-[var(--theme-glow-from,rgba(251,191,36,0.2))] rounded-full blur-3xl" />
 
       <motion.div
-        className={`relative z-10 flex ${isMobile ? 'h-full' : 'min-h-screen'} flex-col`}
+        className={`relative z-10 flex ${
+          isMobile ? "h-full" : "min-h-screen"
+        } flex-col`}
         layout
         transition={{ duration: 0.8, ease: "easeInOut" }}
       >
         <motion.div
-          className={`${isMobile ? 'pt-8 pb-0 px-2 flex-shrink-0' : 'p-2 md:p-8'} flex flex-col items-center ${
-            hasSearched && !isMobile ? "" : isMobile ? "" : "flex-grow justify-center"
+          className={`${
+            isMobile ? "pt-8 pb-0 px-2 flex-shrink-0" : "p-2 md:p-8"
+          } flex flex-col items-center ${
+            hasSearched && !isMobile
+              ? ""
+              : isMobile
+              ? ""
+              : "flex-grow justify-center"
           }`}
           layout={!isMobile}
-          transition={isMobile ? { duration: 0 } : { duration: 0.8, ease: "easeInOut" }}
+          transition={
+            isMobile ? { duration: 0 } : { duration: 0.8, ease: "easeInOut" }
+          }
         >
           {/* Theme Selector */}
           <motion.div
@@ -126,12 +140,18 @@ export default function MovieMoodApp() {
               hasSearched && !isMobile ? "mb-6 md:mb-8" : "mb-4 md:mb-12"
             } w-full flex flex-col items-center px-2 md:px-4`}
             layout={!isMobile}
-            transition={isMobile ? { duration: 0 } : { duration: 0.8, ease: "easeInOut" }}
+            transition={
+              isMobile ? { duration: 0 } : { duration: 0.8, ease: "easeInOut" }
+            }
           >
             <motion.h1
               className="p-1 md:p-2 text-3xl md:text-5xl font-bold text-foreground transition-colors duration-300"
               layout={!isMobile}
-              transition={isMobile ? { duration: 0 } : { duration: 0.8, ease: "easeInOut" }}
+              transition={
+                isMobile
+                  ? { duration: 0 }
+                  : { duration: 0.8, ease: "easeInOut" }
+              }
             >
               Cinescape
             </motion.h1>
@@ -149,7 +169,11 @@ export default function MovieMoodApp() {
               }}
               initial="visible"
               animate={hasSearched && !isMobile ? "hidden" : "visible"}
-              transition={isMobile ? { duration: 0 } : { duration: 0.5, ease: "easeInOut" }}
+              transition={
+                isMobile
+                  ? { duration: 0 }
+                  : { duration: 0.5, ease: "easeInOut" }
+              }
             >
               Stop stalling. Find your next movie.
             </motion.p>
@@ -158,10 +182,16 @@ export default function MovieMoodApp() {
           {/* Letterboxd Integration */}
           <motion.div
             className={`w-full flex justify-center px-2 md:px-4 ${
-              hasSearched && !isMobile ? "mb-4 md:mb-6" : isMobile ? "mb-2" : "mb-4 md:mb-8"
+              hasSearched && !isMobile
+                ? "mb-4 md:mb-6"
+                : isMobile
+                ? "mb-2"
+                : "mb-4 md:mb-8"
             }`}
             layout={!isMobile}
-            transition={isMobile ? { duration: 0 } : { duration: 0.8, ease: "easeInOut" }}
+            transition={
+              isMobile ? { duration: 0 } : { duration: 0.8, ease: "easeInOut" }
+            }
           >
             <motion.div
               initial={{ width: 56, height: 56 }}
@@ -274,17 +304,27 @@ export default function MovieMoodApp() {
           {/* Input Section */}
           <motion.div
             className={`w-full px-2 md:px-4 max-w-2xl ${
-              hasSearched && !isMobile ? "mb-6 md:mb-8" : isMobile ? "mb-2" : "mb-4 md:mb-12"
+              hasSearched && !isMobile
+                ? "mb-6 md:mb-8"
+                : isMobile
+                ? "mb-2"
+                : "mb-4 md:mb-12"
             } flex justify-center`}
             layout={!isMobile}
-            transition={isMobile ? { duration: 0 } : { duration: 0.8, ease: "easeInOut" }}
+            transition={
+              isMobile ? { duration: 0 } : { duration: 0.8, ease: "easeInOut" }
+            }
           >
             <form onSubmit={handleSubmit} className="relative group w-full">
               {/* Main container with PromptBox */}
               <motion.div
                 className="relative rounded-2xl md:rounded-[28px]"
                 layout={!isMobile}
-                transition={isMobile ? { duration: 0 } : { duration: 0.8, ease: "easeInOut" }}
+                transition={
+                  isMobile
+                    ? { duration: 0 }
+                    : { duration: 0.8, ease: "easeInOut" }
+                }
               >
                 {isLoading && (
                   <BorderBeam
@@ -325,11 +365,13 @@ export default function MovieMoodApp() {
         <AnimatePresence>
           {recommendations.length > 0 && (
             <motion.div
-              className={`w-full ${isMobile ? 'flex-1 min-h-0' : ''}`}
+              className={`w-full ${isMobile ? "flex-1 min-h-0" : ""}`}
               initial={isMobile ? { opacity: 1 } : { opacity: 0, y: 50 }}
               animate={{ opacity: 1, y: 0 }}
               exit={isMobile ? { opacity: 0 } : { opacity: 0, y: 50 }}
-              transition={isMobile ? { duration: 0 } : { duration: 0.6, delay: 0.2 }}
+              transition={
+                isMobile ? { duration: 0 } : { duration: 0.6, delay: 0.2 }
+              }
             >
               {isMobile ? (
                 // Mobile: Custom simplified carousel without extra spacing
@@ -343,10 +385,10 @@ export default function MovieMoodApp() {
                   </button>
 
                   {/* Movie display */}
-                  <div className="w-full max-w-xs">
+                  <div className="w-full max-w-[250px]">
                     <div className="aspect-[2/3] relative rounded-2xl overflow-hidden bg-gray-100 mx-auto">
                       {recommendations[currentMobileMovie] && (
-                        <a 
+                        <a
                           href={`https://letterboxd.com${recommendations[currentMobileMovie].url}`}
                           target="_blank"
                           rel="noopener noreferrer"
@@ -367,7 +409,9 @@ export default function MovieMoodApp() {
                           key={index}
                           onClick={() => setCurrentMobileMovie(index)}
                           className={`w-2 h-2 rounded-full transition-colors ${
-                            index === currentMobileMovie ? 'bg-foreground' : 'bg-foreground/30'
+                            index === currentMobileMovie
+                              ? "bg-foreground"
+                              : "bg-foreground/30"
                           }`}
                         />
                       ))}
