@@ -1,7 +1,6 @@
 'use client'
 
 import * as React from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
 import { Palette, Check } from 'lucide-react'
 import { useMovieTheme } from '@/components/movie-theme-provider'
 import { Button } from '@/components/ui/button'
@@ -120,14 +119,12 @@ export function ThemeSelector({ className }: ThemeSelectorProps) {
                 className="p-0 cursor-pointer"
                 onSelect={() => setTheme(theme.id)}
               >
-                <motion.div
-                  className="w-full p-2 md:p-3 rounded-lg border-2 transition-all relative overflow-hidden"
+                <div
+                  className="w-full p-2 md:p-3 rounded-lg border-2 transition-all relative overflow-hidden hover:scale-105"
                   style={{
                     background: `linear-gradient(135deg, ${preview?.gradientFrom || '#fef3c7'}, ${preview?.gradientTo || '#fed7aa'})`,
                     borderColor: isSelected ? (preview?.accent || '#f59e0b') : 'transparent',
                   }}
-                  whileHover={{ scale: 1.02 }}
-                  whileTap={{ scale: 0.98 }}
                 >
                   <div className="flex items-center justify-between">
                     <div className="flex-1">
@@ -149,20 +146,14 @@ export function ThemeSelector({ className }: ThemeSelectorProps) {
                       </p>
                     </div>
                     
-                    <AnimatePresence>
-                      {isSelected && (
-                        <motion.div
-                          initial={{ scale: 0, opacity: 0 }}
-                          animate={{ scale: 1, opacity: 1 }}
-                          exit={{ scale: 0, opacity: 0 }}
-                          transition={{ type: "spring", duration: 0.3 }}
-                          className="ml-3 p-1 rounded-full"
-                          style={{ backgroundColor: preview?.accent || '#f59e0b' }}
-                        >
-                          <Check className="w-3 h-3 text-white" />
-                        </motion.div>
-                      )}
-                    </AnimatePresence>
+                    {isSelected && (
+                      <div
+                        className="ml-3 p-1 rounded-full"
+                        style={{ backgroundColor: preview?.accent || '#f59e0b' }}
+                      >
+                        <Check className="w-3 h-3 text-white" />
+                      </div>
+                    )}
                   </div>
                   
                   {/* Color palette preview */}
@@ -180,7 +171,7 @@ export function ThemeSelector({ className }: ThemeSelectorProps) {
                       style={{ backgroundColor: preview?.accent }}
                     />
                   </div>
-                </motion.div>
+                </div>
               </DropdownMenuItem>
             )
           })}

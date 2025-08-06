@@ -102,6 +102,13 @@ export default function MovieMoodApp() {
       <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-gradient-to-r from-[var(--theme-glow-from,rgba(251,191,36,0.2))] to-[var(--theme-glow-to,rgba(249,115,22,0.2))] rounded-full blur-3xl" />
       <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-gradient-to-r from-[var(--theme-glow-secondary,rgba(253,224,71,0.2))] to-[var(--theme-glow-from,rgba(251,191,36,0.2))] rounded-full blur-3xl" />
 
+      {/* Desktop Theme Selector - Outside layout container */}
+      {!isMobile && (
+        <div className="fixed top-4 right-4 z-20">
+          <ThemeSelector />
+        </div>
+      )}
+
       <motion.div
         className={`relative z-10 flex ${
           isMobile ? "h-full" : "min-h-screen"
@@ -137,13 +144,9 @@ export default function MovieMoodApp() {
             {isMobile ? (
               // Mobile: Theme selector first, then title
               <div className="flex flex-col items-center gap-2 w-full">
-                <motion.div
-                  initial={{ opacity: 0, y: -20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.5, delay: 0.2 }}
-                >
+                <div>
                   <ThemeSelector />
-                </motion.div>
+                </div>
                 <motion.h1
                   className="p-1 md:p-2 text-3xl md:text-5xl font-bold text-foreground transition-colors duration-300"
                   layout={!isMobile}
@@ -157,28 +160,18 @@ export default function MovieMoodApp() {
                 </motion.h1>
               </div>
             ) : (
-              // Desktop: Original layout with absolute positioned theme selector
-              <>
-                <motion.div
-                  className="absolute top-2 right-2 md:top-4 md:right-4 z-20"
-                  initial={{ opacity: 0, y: -20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.5, delay: 0.2 }}
-                >
-                  <ThemeSelector />
-                </motion.div>
-                <motion.h1
-                  className="p-1 md:p-2 text-3xl md:text-5xl font-bold text-foreground transition-colors duration-300"
-                  layout={!isMobile}
-                  transition={
-                    isMobile
-                      ? { duration: 0 }
-                      : { duration: 0.8, ease: "easeInOut" }
-                  }
-                >
-                  Cinescape
-                </motion.h1>
-              </>
+              // Desktop: Just the title
+              <motion.h1
+                className="p-1 md:p-2 text-3xl md:text-5xl font-bold text-foreground transition-colors duration-300"
+                layout={!isMobile}
+                transition={
+                  isMobile
+                    ? { duration: 0 }
+                    : { duration: 0.8, ease: "easeInOut" }
+                }
+              >
+                Cinescape
+              </motion.h1>
             )}
             <motion.p
               className="text-base md:text-lg lg:text-xl text-muted-foreground max-w-2xl font-light leading-relaxed mt-2 md:mt-6 text-center mx-auto px-2 md:px-4 transition-colors duration-300"
