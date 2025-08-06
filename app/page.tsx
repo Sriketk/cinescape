@@ -124,16 +124,6 @@ export default function MovieMoodApp() {
             isMobile ? { duration: 0 } : { duration: 0.8, ease: "easeInOut" }
           }
         >
-          {/* Theme Selector */}
-          <motion.div
-            className="absolute top-2 right-2 md:top-4 md:right-4 z-20"
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.2 }}
-          >
-            <ThemeSelector />
-          </motion.div>
-
           {/* Header */}
           <motion.div
             className={`text-center ${
@@ -144,17 +134,52 @@ export default function MovieMoodApp() {
               isMobile ? { duration: 0 } : { duration: 0.8, ease: "easeInOut" }
             }
           >
-            <motion.h1
-              className="p-1 md:p-2 text-3xl md:text-5xl font-bold text-foreground transition-colors duration-300"
-              layout={!isMobile}
-              transition={
-                isMobile
-                  ? { duration: 0 }
-                  : { duration: 0.8, ease: "easeInOut" }
-              }
-            >
-              Cinescape
-            </motion.h1>
+            {isMobile ? (
+              // Mobile: Theme selector first, then title
+              <div className="flex flex-col items-center gap-2 w-full">
+                <motion.div
+                  initial={{ opacity: 0, y: -20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5, delay: 0.2 }}
+                >
+                  <ThemeSelector />
+                </motion.div>
+                <motion.h1
+                  className="p-1 md:p-2 text-3xl md:text-5xl font-bold text-foreground transition-colors duration-300"
+                  layout={!isMobile}
+                  transition={
+                    isMobile
+                      ? { duration: 0 }
+                      : { duration: 0.8, ease: "easeInOut" }
+                  }
+                >
+                  Cinescape
+                </motion.h1>
+              </div>
+            ) : (
+              // Desktop: Original layout with absolute positioned theme selector
+              <>
+                <motion.div
+                  className="absolute top-2 right-2 md:top-4 md:right-4 z-20"
+                  initial={{ opacity: 0, y: -20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5, delay: 0.2 }}
+                >
+                  <ThemeSelector />
+                </motion.div>
+                <motion.h1
+                  className="p-1 md:p-2 text-3xl md:text-5xl font-bold text-foreground transition-colors duration-300"
+                  layout={!isMobile}
+                  transition={
+                    isMobile
+                      ? { duration: 0 }
+                      : { duration: 0.8, ease: "easeInOut" }
+                  }
+                >
+                  Cinescape
+                </motion.h1>
+              </>
+            )}
             <motion.p
               className="text-base md:text-lg lg:text-xl text-muted-foreground max-w-2xl font-light leading-relaxed mt-2 md:mt-6 text-center mx-auto px-2 md:px-4 transition-colors duration-300"
               style={{ overflow: "hidden" }}
