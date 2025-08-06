@@ -13,6 +13,7 @@ import Image from "next/image";
 import { PromptBox } from "@/components/ui/chat-prompt-input";
 import { BorderBeam } from "@/components/ui/border-beam";
 import { ThemeSelector } from "@/components/ui/theme-selector";
+import {IconButton} from "@/components/ui/icon-button"
 import { useMovieTheme } from "@/components/movie-theme-provider";
 import { useIsMobile } from "@/hooks/use-mobile";
 
@@ -106,14 +107,14 @@ export default function MovieMoodApp() {
       {!isMobile && (
         <div className="fixed top-4 right-4 z-20 flex items-center gap-2">
           <ThemeSelector />
-          <a
+          <IconButton
             href="https://github.com/Sriketk/cinescape"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex items-center justify-center px-2 py-2 bg-stone-700 backdrop-blur-sm rounded-lg border border-white/20 text-white transition-colors hover:scale-105 h-8 w-8"
+            style={{
+              color: currentTheme.colors.foreground === "0 0% 3.9%" ? "#000000" : "#ffffff",
+            }}
           >
-            <Github className="w-4 h-4" />
-          </a>
+            <Github className="w-6 h-6" />
+          </IconButton>
         </div>
       )}
 
@@ -154,14 +155,14 @@ export default function MovieMoodApp() {
               <div className="flex flex-col items-center gap-2 w-full">
                 <div className="flex items-center gap-2">
                   <ThemeSelector />
-                  <a
+                  <IconButton
                     href="https://github.com/Sriketk/cinescape"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-center justify-center px-2 py-2 bg-stone-700 hover:bg-black/20 backdrop-blur-sm rounded-lg border border-white/20 text-white transition-colors h-8 w-8 hover:scale-105"
+                    style={{
+                      color: currentTheme.colors.foreground === "0 0% 3.9%" ? "#000000" : "#ffffff",
+                    }}
                   >
-                    <Github className="w-4 h-4" />
-                  </a>
+                    <Github className="w-6 h-6" />
+                  </IconButton>
                 </div>
                 <motion.h1
                   className="p-1 md:p-2 text-3xl md:text-5xl font-bold text-foreground transition-colors duration-300"

@@ -3,7 +3,7 @@
 import * as React from 'react'
 import { Palette, Check } from 'lucide-react'
 import { useMovieTheme } from '@/components/movie-theme-provider'
-import { Button } from '@/components/ui/button'
+import { IconButton } from '@/components/ui/icon-button'
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -70,19 +70,15 @@ export function ThemeSelector({ className }: ThemeSelectorProps) {
   return (
     <DropdownMenu open={isOpen} onOpenChange={setIsOpen}>
       <DropdownMenuTrigger asChild>
-        <Button
-          variant="ghost"
-          size="sm"
-          className={`relative overflow-hidden hover:scale-105 transition-transform hover:text-white ${className || 'h-8 w-8'}`}
+        <button
+          className={`flex items-center justify-center transition-colors h-10 w-10 ${className || ''}`}
           style={{
-            background: `linear-gradient(45deg, ${
-              themePreviewData[currentTheme.id]?.gradientFrom || '#fef3c7'
-            }, ${themePreviewData[currentTheme.id]?.gradientTo || '#fed7aa'})`,
+            background: 'transparent',
             border: 'none',
           }}
         >
-          <Palette className="w-4 h-4" />
-        </Button>
+          <Palette className="w-6 h-6" />
+        </button>
       </DropdownMenuTrigger>
       <DropdownMenuContent 
         className="w-64 md:w-80 p-2" 
