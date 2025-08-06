@@ -5,7 +5,7 @@ import type React from "react";
 import { useState, useMemo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Input } from "@/components/ui/input";
-import { X, ChevronLeft, ChevronRight } from "lucide-react";
+import { X, ChevronLeft, ChevronRight, Github } from "lucide-react";
 import { getMovieRecommendations } from "./actions";
 import type { MovieRecommendation } from "@/lib/types";
 import { Carousel } from "@/components/ui/mv-carouser";
@@ -102,10 +102,18 @@ export default function MovieMoodApp() {
       <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-gradient-to-r from-[var(--theme-glow-from,rgba(251,191,36,0.2))] to-[var(--theme-glow-to,rgba(249,115,22,0.2))] rounded-full blur-3xl" />
       <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-gradient-to-r from-[var(--theme-glow-secondary,rgba(253,224,71,0.2))] to-[var(--theme-glow-from,rgba(251,191,36,0.2))] rounded-full blur-3xl" />
 
-      {/* Desktop Theme Selector - Outside layout container */}
+      {/* Desktop Theme Selector and GitHub - Outside layout container */}
       {!isMobile && (
-        <div className="fixed top-4 right-4 z-20">
+        <div className="fixed top-4 right-4 z-20 flex items-center gap-2">
           <ThemeSelector />
+          <a
+            href="https://github.com/Sriketk/cinescape"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center justify-center px-2 py-2 bg-stone-700 backdrop-blur-sm rounded-lg border border-white/20 text-white transition-colors hover:scale-105 h-8 w-8"
+          >
+            <Github className="w-4 h-4" />
+          </a>
         </div>
       )}
 
@@ -142,10 +150,18 @@ export default function MovieMoodApp() {
             }
           >
             {isMobile ? (
-              // Mobile: Theme selector first, then title
+              // Mobile: Theme selector and GitHub on same line, then title
               <div className="flex flex-col items-center gap-2 w-full">
-                <div>
+                <div className="flex items-center gap-2">
                   <ThemeSelector />
+                  <a
+                    href="https://github.com/Sriketk/cinescape"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center justify-center px-2 py-2 bg-stone-700 hover:bg-black/20 backdrop-blur-sm rounded-lg border border-white/20 text-white transition-colors h-8 w-8 hover:scale-105"
+                  >
+                    <Github className="w-4 h-4" />
+                  </a>
                 </div>
                 <motion.h1
                   className="p-1 md:p-2 text-3xl md:text-5xl font-bold text-foreground transition-colors duration-300"

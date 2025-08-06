@@ -71,25 +71,17 @@ export function ThemeSelector({ className }: ThemeSelectorProps) {
     <DropdownMenu open={isOpen} onOpenChange={setIsOpen}>
       <DropdownMenuTrigger asChild>
         <Button
-          variant="outline"
+          variant="ghost"
           size="sm"
-          className={`relative overflow-hidden border-2 hover:scale-105 transition-transform ${className}`}
+          className={`relative overflow-hidden hover:scale-105 transition-transform hover:text-white ${className || 'h-8 w-8'}`}
           style={{
             background: `linear-gradient(45deg, ${
               themePreviewData[currentTheme.id]?.gradientFrom || '#fef3c7'
             }, ${themePreviewData[currentTheme.id]?.gradientTo || '#fed7aa'})`,
-            borderColor: themePreviewData[currentTheme.id]?.accent || '#f59e0b',
+            border: 'none',
           }}
         >
-          <Palette className="w-4 h-4 mr-2" />
-          <span 
-            className="font-medium text-xs md:text-sm"
-            style={{ 
-              color: currentTheme.colors.foreground === "0 0% 3.9%" ? "#000000" : "#ffffff" 
-            }}
-          >
-            {currentTheme.name}
-          </span>
+          <Palette className="w-4 h-4" />
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent 
