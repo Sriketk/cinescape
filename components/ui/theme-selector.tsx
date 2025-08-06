@@ -99,7 +99,12 @@ export function ThemeSelector({ className }: ThemeSelectorProps) {
         side="bottom"
         sideOffset={8}
       >
-        <DropdownMenuLabel className="text-xs md:text-sm font-semibold mb-2 text-gray-900">
+        <DropdownMenuLabel 
+          className="text-xs md:text-sm font-semibold mb-2"
+          style={{ 
+            color: currentTheme.colors.foreground === "0 0% 3.9%" ? "#000000" : "#ffffff" 
+          }}
+        >
           Choose Movie Theme
         </DropdownMenuLabel>
         <DropdownMenuSeparator />
